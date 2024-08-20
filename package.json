@@ -1,19 +1,21 @@
 {
-  "name": "backend-boilerplate",
-  "version": "1.0.0",
-  "description": "Backend boilerplate with TypeScript",
   "scripts": {
     "build": "tsc --noEmit && tsc --outDir build",
-    "start": "node build/index.js",
-    "dev": "nodemon"
+    "dev": "npm run build && node build/db.js",
+    "start": ""
   },
   "devDependencies": {
-    "nodemon": "^3.1.4",
-    "typescript": "^5.5.3"
+    "@types/sqlite3": "^3.1.11",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@types/express": "^4.17.21",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "sqlite": "^5.1.1"
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.4",
+    "sqlite3": "^5.1.7",
+    "uuid": "^10.0.0"
   }
 }
