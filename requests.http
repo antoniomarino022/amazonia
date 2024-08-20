@@ -1,3 +1,0 @@
-### Test POST request without authorization token (should fail)
-GET http://localhost:3000
-Content-Type: application/json
