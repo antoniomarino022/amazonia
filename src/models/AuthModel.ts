@@ -4,6 +4,7 @@ import  jwt  from "jsonwebtoken";
 export class AuthModel {
     referenceKeyUser:UserModel["primaryKeyUser"];
     token:string;
+    
 
     constructor( referenceKeyUser:UserModel["primaryKeyUser"]){
         this.referenceKeyUser = referenceKeyUser 

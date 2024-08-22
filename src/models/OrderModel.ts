@@ -1,18 +1,19 @@
-import UserModel from "./UserModel.ts";
-import ProductModel from "./ProductModel.ts";
+import { UserModel } from "./UserModel.js";
+import { ProductModel } from "./ProductModel.js";
 import { v4 as uuidv4 } from 'uuid';
 
 export class OrderModel {
-  primaryKey: string;
-  referenceKeyUser: UserModel["primaryKey"];
+  primaryKeyOrder: string;
+  referenceKeyUser:UserModel["primaryKeyUser"];
   products: Array<ProductModel>;
   status: string;
   date: Date;
-  constructor(referenceKeyUser: UserModel["primaryKey"], products: Array<ProductModel>)
+  constructor(referenceKeyUser:UserModel["primaryKeyUser"], products: Array<ProductModel>,)
   {
-    this.primaryKey = uuidv4();
+    this.primaryKeyOrder = uuidv4();
     this.referenceKeyUser = referenceKeyUser;
     this.products = products;
-    status = "ordered";
-    date = new Date();
+    this.status = "ordered";
+    this.date = new Date();
+  }
 }
