@@ -21,10 +21,10 @@ async function initializeDatabase() {
   const db = await getDb()
 
   await db.exec(`
-   -- Creazione della tabella degli utenti
+   
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    username TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL
 );
@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS cart(
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY(productId) REFERENCES products(id) ON DELETE CASCADE
 );
+
 
   `);
 }

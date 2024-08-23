@@ -1,0 +1,15 @@
+### register user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username":"massimo bossetti",
+    "email":"freebossetti@gmail.com",
+    "password":"123456"
+}
+
+
+
+### delete user
+DELETE http://localhost:3000/users/1
+Content-Type: application/json
