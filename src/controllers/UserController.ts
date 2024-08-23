@@ -1,18 +1,41 @@
 import { UserModel } from "../models/UserModel";
+import { AuthController } from "./AuthController";
 
 export class UserController {
     private users: UserModel[];
+    private controllerAuth: AuthController;
     
     constructor() {
+        this.controllerAuth = new AuthController(this);
         this.users = [];
     }
 
     registerUser(username: string, email: string, password: string) {
-        
+        const foundUser = this.users.find((user) => email === user.email && username === user.username);
+
+        if (!!foundUser) {
+            console.log('Utente già esistente');
+            return false;
+        } else {
+            const register = new UserModel(username, email, password, false);
+            this.users.push(register);
+            return true;
+        }
     }
 
     updateUser(username: string, token: string, primaryKeyUser: string) {
-        
+        if (this.controllerAuth.isValidToken(token, primaryKeyUser)) {
+            this.users = this.users.map((user) => {
+                if (primaryKeyUser === user.primaryKeyUser) {
+                    return { ...user, username };
+                }
+                return user;
+            });
+            console.log("Modifica username avvenuta");
+            return true;
+        }
+        console.log("Token non valido");
+        return false;
     }
 
     getAllUsers() {
