@@ -2,7 +2,7 @@ import { OrderModel } from "../models/OrderModel";
 import { ProductModel } from "../models/ProductModel";
 
 export class OrderController {
-    orders: Array<OrderModel> = [];
+    private orders: Array<OrderModel> = [];
     constructor()
     {
 
