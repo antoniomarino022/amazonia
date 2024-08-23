@@ -6,12 +6,14 @@ export class ProductModel {
   description: string;
   price: Number;
   img: string;
-  constructor(name: string, description: string, price: Number, img: string)
+  category: string;
+  constructor(name: string, description: string, price: Number, img: string, category: string)
   {
     this.primaryKeyProduct = uuidv4();
     this.name = name;
     this.description = description;
     this.price = price;
     this.img = img;
+    this.category = category;
   }
 }
