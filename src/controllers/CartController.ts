@@ -23,4 +23,26 @@ export class CartController {
         
         this.carts = [...this.carts, new CartModel(referenceKeyUser, referenceKeyProduct)]
     }
+    emptyCart(referenceKeyUser: string)
+    {
+        this.carts = this.carts.filter(function(cart)
+        {
+            if(cart.referenceKeyUser==referenceKeyUser)
+            {
+                return false;
+            }
+            return true;
+        });
+    }
+    removeProduct(referenceKeyUser: string, referenceKeyProduct:string)
+    {
+        this.carts = this.carts.filter(function(cart)
+        {
+            if(cart.referenceKeyUser==referenceKeyUser && cart.referenceKeyProduct == referenceKeyProduct)
+            {
+                return false;
+            }
+            return true;
+        });
+    }
 }
