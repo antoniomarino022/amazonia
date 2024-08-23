@@ -1,8 +1,8 @@
 {
   "scripts": {
     "build": "tsc --noEmit && tsc --outDir build",
-    "dev": "npm run build && node build/app.js",
-    "start": ""
+    "dev": "npm run build && node build/server.js",
+    "start": "nodemon"
   },
   "devDependencies": {
     "@types/sqlite3": "^3.1.11",
