@@ -1,15 +1,18 @@
 import { UserModel } from "../models/UserModel";
 import { AuthController } from "./AuthController";
 import { CartController } from "./CartController";
+import { ProductController } from "./ProductController";
 
 export class UserController {
     private users: UserModel[];
     private controllerAuth: AuthController;
     private controllerCart: CartController;
+    private controllerProduct: ProductController;
     
     constructor() {
         this.controllerAuth = new AuthController(this);
         this.controllerCart = new CartController();
+        this.controllerProduct = new ProductController(this);
         this.users = [];
     }
 
