@@ -8,7 +8,7 @@ export class OrderModel {
   products: Array<ProductModel>;
   status: string;
   date: Date;
-  constructor(referenceKeyUser:UserModel["primaryKeyUser"], products: Array<ProductModel>,)
+  constructor(referenceKeyUser:UserModel["primaryKeyUser"], products: Array<ProductModel>)
   {
     this.primaryKeyOrder = uuidv4();
     this.referenceKeyUser = referenceKeyUser;
