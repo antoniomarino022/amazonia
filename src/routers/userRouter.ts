@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import * as bcrypt from 'bcrypt';
+import { authenticateToken } from "../middleware/authenticateToken";
 
 config()
 
@@ -54,6 +55,52 @@ routerUser.post('', async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Errore nel server', error });
   }
 });
+
+
+
+// update user
+routerUser.put('/update/:id',authenticateToken ,async (req: Request, res: Response) => {
+  try {
+    const db = await getDb();
+
+    const { username, password } = req.body;
+    const { id } = req.params;
+
+    if (!username || !password) {
+      return res.status(400).json({
+        message: "Username e password sono richiesti"
+      });
+    }
+
+
+    const user = await db.get('SELECT * FROM users WHERE id = ?', [id]);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "Utente non trovato"
+      });
+    }
+
+
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const result = await db.run('UPDATE users SET username = ?, password = ? WHERE id = ?', [username,  passwordHash, id]);
+
+    if (result.changes && result.changes > 0) {
+      return res.status(200).json({
+        message: "Utente modificato con successo"
+      });
+    } else {
+      return res.status(400).json({
+        message: "Utente non modificato"
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: 'Errore nel server', error });
+  }
+});
+
 
 
 
