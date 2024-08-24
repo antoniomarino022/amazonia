@@ -10,6 +10,29 @@ Content-Type: application/json
 
 
 
+
+### login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"freebossetti@gmail.com",
+    "password":"123456"
+}
+
+
+
+
+### logout 
+DELETE http://localhost:3000/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI0NTA1Mjc2LCJleHAiOjE3MjQ1MDcwNzZ9.ys8prY3U1lEGvoIfeIL8D0jE2MuUFG8GkG2ceHW4ABs
+
+
+
+
+
+
 ### delete user
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:3000/users/2
 Content-Type: application/json

@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS auth (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
-    Token TEXT NOT NULL,
+    token TEXT NOT NULL,
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS auth (
 CREATE TABLE IF NOT EXISTS products(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
+    token TEXT NOT NULL,
     nameProduct TEXT NOT NULL,
-    price TEXT NOT NULL,
+    price REAL NOT NULL,
     img TEXT NOT NULL,
     category TEXT NOT NULL,
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS products(
 CREATE TABLE IF NOT EXISTS orders(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
-    Token TEXT NOT NULL,
+    token TEXT NOT NULL,
     status TEXT NOT NULL,
     date TEXT NOT NULL,
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
@@ -65,9 +66,7 @@ CREATE TABLE IF NOT EXISTS cart(
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY(productId) REFERENCES products(id) ON DELETE CASCADE
 );
-
-
-  `);
+`);
 }
 
 // Inizializza il database
@@ -76,7 +75,7 @@ initializeDatabase()
 
 // Configura le route
 app.use('/users', routerUser);
-app.use('/auths', routerAuth);
+app.use('/auth', routerAuth);
 app.use('/product', routerProduct);
 app.use('/order', routerOrder);
 app.use('/cart', routerCart);
