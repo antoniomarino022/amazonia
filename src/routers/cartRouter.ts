@@ -10,7 +10,7 @@ export const routerCart = express.Router();
 
 async function getDb() {
     return open({
-      filename: 'mydb.sqlite',
+      filename: 'db.sqlite',
       driver: sqlite3.Database
     });
   };

@@ -32,7 +32,7 @@ routerAuth.post('/login',async (req:Request,res:Response)=>{
     }
 
     const userVerify = await db.get('SELECT * FROM users WHERE email = ?',[email]);
-    console.log(userVerify)
+
 
     if (!userVerify) {
       return res.status(400).json({
@@ -43,13 +43,10 @@ routerAuth.post('/login',async (req:Request,res:Response)=>{
     
 
     const match = await bcrypt.compare(password, userVerify.password);
-    console.log(match)
 
     if(match){
       const userId = userVerify.id
-      console.log(userId)
       const token = generateAccessToken(userId);
-      console.log(token)
 
       const success = await db.run('INSERT INTO auth (userId,token) VALUES (?,?)',[userId,token]);
 
@@ -109,3 +106,5 @@ routerAuth.delete('/logout', authenticateToken, async (req:Request,res:Response)
   }
 
 });
+
+

@@ -11,6 +11,21 @@ Content-Type: application/json
 
 
 
+### update user
+PUT http://localhost:3000/users/update/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzI0NTI3NzIzLCJleHAiOjE3MjQ1Mjk1MjN9.DqBogZPAQWQaGb90p8JGezsN7YOf5Dst3KuXopqTZiw
+
+
+
+{
+    "username":"massimo bossetti2",
+    "password":"12345"
+}
+
+
+
+
 ### login
 POST http://localhost:3000/auth/login
 Content-Type: application/json
@@ -26,13 +41,12 @@ Content-Type: application/json
 ### logout 
 DELETE http://localhost:3000/auth/logout
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI0NTA1Mjc2LCJleHAiOjE3MjQ1MDcwNzZ9.ys8prY3U1lEGvoIfeIL8D0jE2MuUFG8GkG2ceHW4ABs
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzI0NTI4NTUxLCJleHAiOjE3MjQ1MzAzNTF9.lroV0D-Bz0ZBKLRN2d2kvuCrTsLNVUeRuPCi8bFlTzQ
 
 
 
 
 
 ### delete user
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/users/5
 Content-Type: application/json
