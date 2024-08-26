@@ -59,13 +59,25 @@ CREATE TABLE IF NOT EXISTS orders(
 );
 
 
+CREATE TABLE IF NOT EXISTS orders_product(
+    ordineId INTEGER NOT NULL,
+    prodottoId INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    FOREIGN KEY(ordineId) REFERENCES ordini(id) ON DELETE CASCADE,
+    FOREIGN KEY(prodottoId) REFERENCES prodotti(id) ON DELETE CASCADE,
+    PRIMARY KEY(ordineId, prodottoId)
+);
+
 CREATE TABLE IF NOT EXISTS cart(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
     productId INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY(productId) REFERENCES products(id) ON DELETE CASCADE
 );
+
+
 `);
 }
 
