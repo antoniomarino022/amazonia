@@ -1,3 +1,18 @@
+###clean auth
+DELETE http://localhost:3000/auth/clean
+Content-Type: application/json
+
+
+
+
+###clean users
+DELETE http://localhost:3000/users/clean
+Content-Type: application/json
+
+
+
+
+
 ### register user
 POST http://localhost:3000/users
 Content-Type: application/json
@@ -41,12 +56,29 @@ Content-Type: application/json
 ### logout 
 DELETE http://localhost:3000/auth/logout
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzI0NTI4NTUxLCJleHAiOjE3MjQ1MzAzNTF9.lroV0D-Bz0ZBKLRN2d2kvuCrTsLNVUeRuPCi8bFlTzQ
+Authorization: Bearere yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzI0NTk0MDQ4LCJleHAiOjE3MjQ1OTU4NDh9.EbQZS76tobDn8sryZirjiHe8Pi-X5uZZ4cTc3OF3Oc4
 
 
 
 
 
 ### delete user
-DELETE http://localhost:3000/users/5
+DELETE http://localhost:3000/users/7
 Content-Type: application/json
+
+
+
+
+### add product
+POST http://localhost:3000/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNzI0NjYyOTcxLCJleHAiOjE3MjQ2NjQ3NzF9.B4fz7bfmYOofbJ_DmWCY6fIPQihnFDiPbz7s_89LQRU
+
+{
+    "nameProduct":"porno a microonde",
+    "price":10,
+    "img":"immagine",
+    "category":"elettrodomestici"
+}
+
+
