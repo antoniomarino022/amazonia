@@ -21,7 +21,7 @@ async function getDb() {
   routerUser.delete('/clean',async (req:Request,res:Response)=>{
 
     try {
-      console.log('Chiamato endpoint /clean');
+      
       const db = await getDb();
   
       const result = await db.run('DELETE FROM users');

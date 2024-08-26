@@ -21,18 +21,32 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
 
   try {
     const db = await getDb();
-    const { nameProduct, price, img, category } = req.body;
+    const { nameProduct, price, img, category} = req.body;
+    
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
 
     
-    if (!nameProduct || !price || !img || !category) {
+    if (!nameProduct || !price || !img || !category ) {
       return res.status(400).json({
         'message': 'nameProduct, price, img e category sono richiesti'
       });
     }
 
+    const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
+
+    if(!userFound){
+      return res.status(404).json({
+        'message': 'utente non trovato'
+      });
+    }
+
+    const userId = userFound.userId
+
     
-    const result = await db.run('INSERT INTO products (nameProduct, price, img, category) VALUES (?, ?, ?, ?)',
-      [nameProduct, price, img, category]
+    const result = await db.run('INSERT INTO products (userId,nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
+      [userId ,nameProduct, price, img, category]
     );
 
     if (result.changes && result.changes > 0) {
@@ -53,3 +67,124 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
     }
   }
 });
+
+
+//  update product
+routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Response) => {
+
+  try {
+    const db = await getDb();
+    const { nameProduct, price, img, category } = req.body;
+    const { id } = req.params;
+
+  
+    if (!nameProduct || !price || !img || !category) {
+      return res.status(400).json({
+        'message': 'nameProduct, price, img e category sono richiesti'
+      });
+    }
+
+    
+    if (!id) {
+      return res.status(400).json({
+        'message': 'ID del prodotto è richiesto'
+      });
+    }
+
+
+    const existingProduct = await db.get('SELECT id FROM products WHERE id = ?', [id]);
+
+    if (!existingProduct) {
+      return res.status(404).json({
+        'message': 'Prodotto non trovato'
+      });
+    }
+
+    
+    const result = await db.run(
+      'UPDATE products SET nameProduct = ?, price = ?, img = ?, category = ? WHERE id = ?',
+      [nameProduct, price, img, category, id]
+    );
+
+    if (result.changes && result.changes > 0) {
+      return res.status(200).json({
+        'message': 'Prodotto aggiornato con successo',
+        'productId': id
+      });
+    } else {
+      return res.status(400).json({
+        'message': 'Nessuna modifica apportata al prodotto'
+      });
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json({
+        'message': 'Errore standard di js',
+        'error': err.message
+      });
+    } else {
+      return res.status(500).json({
+        'message': 'Errore sconosciuto'
+      });
+    }
+  }
+});
+
+
+
+// delete product
+
+routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Response)=>{
+
+
+  try {
+
+    const db = await getDb();
+    const { id } = req.params;
+
+    if(!id){
+      return res.status(400).json({
+        'message': 'ID del prodotto è richiesto'
+      });
+    }
+
+
+    const existingProduct = await db.get('SELECT id FROM products WHERE id = ?', [id]);
+
+    if (!existingProduct) {
+      return res.status(404).json({
+        'message': 'Prodotto non trovato'
+      });
+    }
+    
+
+    const result = await db.run(
+      'DELETE from products WHERE id = ?',[id]
+    );
+
+    if (result.changes && result.changes > 0) {
+      return res.status(200).json({
+        'message': 'Prodotto eliminato con successo',
+        'productId': id
+      });
+    } else {
+      return res.status(400).json({
+        'message': 'prodotto non eliminato'
+      });
+    }
+
+
+
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json({
+        'message': 'Errore standard di js',
+        'error': err.message
+      });
+    } else {
+      return res.status(500).json({
+        'message': 'Errore sconosciuto'
+      });
+    }
+  }
+})
