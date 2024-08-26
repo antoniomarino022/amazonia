@@ -17,6 +17,40 @@ async function getDb() {
   };
 
 
+  // clean users
+  routerUser.delete('/clean',async (req:Request,res:Response)=>{
+
+    try {
+      console.log('Chiamato endpoint /clean');
+      const db = await getDb();
+  
+      const result = await db.run('DELETE FROM users');
+  
+      if(result.changes && result.changes > 0){
+        return res.status(200).json({
+          'message':'tabella svuotata'
+        })
+      }else{
+        return res.status(400).json({
+          'message':'tabella non svuotata'
+        })
+      };
+      
+    } catch (err) {
+      if(err instanceof Error){
+        return res.status(500).json({'message':'errore standar di js','errore':err.message})
+      }else{
+        return res.status(500).json({ message: 'Errore sconosciuto', err });
+      }
+    }
+  
+  })
+  
+
+
+
+
+
 
 // register user
 routerUser.post('', async (req: Request, res: Response) => {
@@ -51,8 +85,12 @@ routerUser.post('', async (req: Request, res: Response) => {
       }
     }
 
-  } catch (error) {
-    return res.status(500).json({ message: 'Errore nel server', error });
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
   }
 });
 
@@ -96,8 +134,12 @@ routerUser.put('/update/:id',authenticateToken ,async (req: Request, res: Respon
         message: "Utente non modificato"
       });
     }
-  } catch (error) {
-    return res.status(500).json({ message: 'Errore nel server', error });
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
   }
 });
 
@@ -107,7 +149,6 @@ routerUser.put('/update/:id',authenticateToken ,async (req: Request, res: Respon
 
 // delete user
 routerUser.delete('/:id', async (req: Request, res: Response) => {
-
   try {
     const db = await getDb()
     const { id } = req.params;
@@ -128,17 +169,25 @@ routerUser.delete('/:id', async (req: Request, res: Response) => {
         const result = await db.run('DELETE FROM users WHERE id = ?',[id]);
 
         if(result.changes && result.changes > 0){
-          res.status(200).json({
+          return res.status(200).json({
             'message':'utente eliminato con successo'
           });
         }else{
-          res.status(400).json({
+           return res.status(400).json({
             'message':'utente non eliminato'
           });
         }
       }
 
-  } catch (error) {
-    return res.status(500).json({ message: 'Errore nel server', error });
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
   }
-})
+});
+
+
+
+

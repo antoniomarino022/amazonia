@@ -18,6 +18,32 @@ async function getDb() {
 
 
 
+// clear auth
+
+routerAuth.delete('/clean', async (req: Request, res: Response) => {
+  try {
+    const db = await getDb();
+    const result = await db.run('DELETE FROM auth');
+
+    
+    if (result.changes && result.changes > 0) {
+      return res.status(200).json({ message: `${result.changes} record(s) eliminati dalla tabella auth.` });
+    } else {
+      return res.status(400).json({ message: 'Nessun record trovato nella tabella auth.' });
+    }
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
+  }
+});
+
+
+
+
+
   // login user
 routerAuth.post('/login',async (req:Request,res:Response)=>{
 
@@ -57,8 +83,12 @@ routerAuth.post('/login',async (req:Request,res:Response)=>{
       }
     }
 
-  } catch (error) {
-    return res.status(500).json({ message: 'Errore nel server', error });
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
   }
 
 })
@@ -101,10 +131,17 @@ routerAuth.delete('/logout', authenticateToken, async (req:Request,res:Response)
       }
     }
 
-  } catch (error) {
-      return res.status(500).json({ message: 'Errore nel server', error });
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
   }
 
 });
+
+
+
 
 
