@@ -3,14 +3,14 @@ import { config } from "dotenv";
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import * as bcrypt from 'bcrypt';
+import validator from "validator";
+import logger from "../logger";
 import { authenticateToken } from "../middleware/authenticateToken";
 
 config()
 
 export const routerUser = express.Router();
 
-
-const whitelist=["gabrolr70@gmail.com", "sofiacacca96@gmail.com"];
 async function getDb() {
     return open({
       filename: 'db.sqlite',
@@ -77,8 +77,8 @@ routerUser.post('', async (req: Request, res: Response) => {
         'message': "utente già esistente"
       });
     } else {
-      //AGGIUNTO isAdmin
-      const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, "false"]);
+     
+      const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
       
       if (result.changes && result.changes > 0) {
         const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
@@ -99,14 +99,27 @@ routerUser.post('', async (req: Request, res: Response) => {
 
 // register user as admin
 routerUser.post('/admin', async (req: Request, res: Response) => {
-
   try {
     const db = await getDb();
     const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
+     // Validazione avanzata di username
+     if (!username || !validator.isAlphanumeric(username) || username.length < 3 || username.length > 20) {
       return res.status(400).json({
-        'message': "username, email e password sono richiesti"
+        'message': "Username non valido. Deve essere alfanumerico e avere tra 3 e 20 caratteri."
+      });
+    }
+
+    // Validazione avanzata di email
+    if (!email || !validator.isEmail(email)) {
+      return res.status(400).json({
+        'message': "Email non valida."
+      });
+    }
+
+    if (!password || password.length < 6) {
+      return res.status(400).json({
+        'message': "Password non valida. Deve contenere almeno 6 caratteri."
       });
     }
 
@@ -116,31 +129,28 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
     const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
 
     if (existingUser) {
+      logger.warn(`Tentativo di registrazione con email già esistente: ${email}`);
       return res.status(400).json({
-        'message': "utente già esistente"
+        'message': "Utente già esistente"
       });
-    } else {
-      if(whitelist.includes(email))
-      {
-        const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, "true"]);
-      
-      if (result.changes && result.changes > 0) {
-        const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
-        return res.status(200).json({ message: 'Utente registrato', user: user });
-      } else {
-        return res.status(500).json({ message: "si è verificato un errore durante la registrazione" });
-      }
-      }
-      else
-      {
-        return res.status(401).json({ message: 'Email non autorizzata' });
-      }
     }
 
+    const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
+
+    if (result.changes && result.changes > 0) {
+      const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
+      logger.info(`Nuovo admin registrato: ${username} (${email})`);
+      return res.status(200).json({ message: 'Utente registrato', user: user });
+    } else {
+      logger.error(`Errore durante la registrazione di ${username} (${email})`);
+      return res.status(500).json({ message: "Si è verificato un errore durante la registrazione" });
+    }
   } catch (err) {
     if(err instanceof Error){
+      logger.error(`Errore JavaScript: ${err.message}`);
       return res.status(500).json({'message':'errore standar di js','errore':err.message})
     }else{
+      logger.error(`Errore sconosciuto: ${err}`);
       return res.status(500).json({ message: 'Errore sconosciuto', err });
     }
   }
