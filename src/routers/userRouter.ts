@@ -92,7 +92,7 @@ routerUser.post('', async (req: Request, res: Response) => {
       });
     } else {
      
-      const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
+      const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
       
       if (result.changes && result.changes > 0) {
         const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
@@ -149,7 +149,7 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
       });
     }
 
-    const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
+    const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
 
     if (result.changes && result.changes > 0) {
       const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
