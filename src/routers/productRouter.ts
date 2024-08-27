@@ -42,10 +42,13 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
       });
     }
 
-    const userId = userFound.userId
+    const userId = userFound.userId;
+    // DA FARE: AGGIUNGERE UN CAMPO VARCHAR(10) CHIAMATO ISADMIN NELLA TABELLA USERS
+    const isAdmin = userFound.isAdmin;
 
-    
-    const result = await db.run('INSERT INTO products (userId,nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
+    if(isAdmin=="true")
+    {
+      const result = await db.run('INSERT INTO products (userId,nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
       [userId ,nameProduct, price, img, category]
     );
 
@@ -58,6 +61,14 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
         'message': 'Prodotto non aggiunto',
       });
     }
+    }
+    else
+    {
+      return res.status(401).json({
+        'message': 'Non sei un admin, permesso negato',
+      });
+    }
+    
 
   } catch (err) {
     if (err instanceof Error) {
