@@ -75,7 +75,8 @@ routerUser.post('', async (req: Request, res: Response) => {
         'message': "utente già esistente"
       });
     } else {
-      const result = await db.run("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [username, email, passwordHash]);
+      //AGGIUNTO isAdmin
+      const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, "false"]);
       
       if (result.changes && result.changes > 0) {
         const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
