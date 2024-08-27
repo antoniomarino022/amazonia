@@ -98,8 +98,7 @@ routerUser.post('', async (req: Request, res: Response) => {
       logger.warn('Tentativo di registrazione con email già esistente', { email }); // Log per tentativo di registrazione con email esistente
       return res.status(400).json(responses.userExists);
     } else {
-      // Inserimento nuovo utente
-      const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
+      const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
       
       if (result.changes && result.changes > 0) {
         logger.info('Nuovo utente registrato con successo', { username, email }); // Log per successo registrazione
@@ -158,7 +157,7 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
       return res.status(400).json(responses.userExists);
     }
 
-    const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
+    const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
 
     if (result.changes && result.changes > 0) {
       const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);

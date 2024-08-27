@@ -23,6 +23,15 @@ Content-Type: application/json
     "password":"123456"
 }
 
+### register user as admin
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username":"massimo bossetti",
+    "email":"freebossetti@gmail.com",
+    "password":"123456"
+}
 
 
 

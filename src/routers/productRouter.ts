@@ -43,7 +43,11 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
     }
 
     const userId = userFound.userId;
+
     const isAdmin = userFound.isAdmin;
+
+  
+
 
     if(isAdmin=="true")
     {
