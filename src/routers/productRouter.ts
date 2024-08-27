@@ -43,7 +43,6 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
     }
 
     const userId = userFound.userId;
-    // DA FARE: AGGIUNGERE UN CAMPO VARCHAR(10) CHIAMATO ISADMIN NELLA TABELLA USERS
     const isAdmin = userFound.isAdmin;
 
     if(isAdmin=="true")
