@@ -3,9 +3,9 @@ import { config } from "dotenv";
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import * as bcrypt from 'bcrypt';
-import validator from "validator";
 import logger from "../middleware/logger";
-import schema from "../middleware/passwordValidator";
+import { validateUsername,validateEmail,validatePassword } from "../middleware/validators";
+import { responses } from "../utils/responses";
 import { authenticateToken } from "../middleware/authenticateToken";
 
 config()
@@ -25,15 +25,18 @@ async function getDb() {
 
     try {
       
+      logger.info('Tentativo di cancella la tabella users ricevuto');
       const db = await getDb();
   
       const result = await db.run('DELETE FROM users');
   
       if(result.changes && result.changes > 0){
+        logger.info('tabella svuotata')
         return res.status(200).json({
           'message':'tabella svuotata'
         })
       }else{
+        logger.warn('tabella non svuotata')
         return res.status(400).json({
           'message':'tabella non svuotata'
         })
@@ -41,8 +44,10 @@ async function getDb() {
       
     } catch (err) {
       if(err instanceof Error){
+        logger.error(`Errore JavaScript: ${err.message}`);
         return res.status(500).json({'message':'errore standar di js','errore':err.message})
       }else{
+        logger.error(`Errore sconosciuto: ${err}`);
         return res.status(500).json({ message: 'Errore sconosciuto', err });
       }
     }
@@ -59,57 +64,63 @@ async function getDb() {
 routerUser.post('', async (req: Request, res: Response) => {
 
   try {
+
+    logger.info('Tentativo di registrazione utente ricevuto', { username: req.body.username, email: req.body.email });
+
     const db = await getDb();
     const { username, email, password } = req.body;
 
     // Validazione avanzata di username
-    if (!username || !validator.isAlphanumeric(username) || username.length < 3 || username.length > 20) {
-      return res.status(400).json({
-        'message': "Username non valido. Deve essere alfanumerico e avere tra 3 e 20 caratteri."
-      });
+    if (!validateUsername(username)) {
+      logger.warn('Username non valido', { username }); // Log per username non valido
+      return res.status(400).json(responses.invalidUsername);
     }
 
-   
-    if (!email || !validator.isEmail(email)) {
-      return res.status(400).json({
-        'message': "Email non valida."
-      });
+    // Validazione email
+    if (!validateEmail(email)) {
+      logger.warn('Email non valida', { email }); // Log per email non valida
+      return res.status(400).json(responses.invalidEmail);
     }
-    if (!schema.validate(password)) {
-      return res.status(400).json({
-        'message': "Password non valida. Deve essere lunga almeno 8 caratteri, contenere lettere maiuscole e minuscole, almeno un numero, e non deve avere spazi."
-      });
+
+    // Validazione password
+    if (!validatePassword(password)) {
+      logger.warn('Password non valida', { password }); // Log per password non valida
+      return res.status(400).json(responses.invalidPassword);
     }
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
+    // Verifica se l'utente esiste già
     const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
 
     if (existingUser) {
-      return res.status(400).json({
-        'message': "utente già esistente"
-      });
+      logger.warn('Tentativo di registrazione con email già esistente', { email }); // Log per tentativo di registrazione con email esistente
+      return res.status(400).json(responses.userExists);
     } else {
-     
       const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
       
       if (result.changes && result.changes > 0) {
+        logger.info('Nuovo utente registrato con successo', { username, email }); // Log per successo registrazione
         const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
         return res.status(200).json({ message: 'Utente registrato', user: user });
       } else {
+        logger.error('Errore durante la registrazione utente', { username, email }); // Log per errore durante l'inserimento
         return res.status(500).json({ message: "si è verificato un errore durante la registrazione" });
       }
     }
 
   } catch (err) {
     if(err instanceof Error){
-      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+      logger.error('Errore JavaScript durante la registrazione utente', { error: err.message }); // Log per errore JavaScript
+      return res.status(500).json({'message':'errore standar di js','errore':err.message});
     }else{
+      logger.error('Errore sconosciuto durante la registrazione utente', { error: err }); // Log per errore sconosciuto
       return res.status(500).json({ message: 'Errore sconosciuto', err });
     }
   }
 });
+
 
 // register user as admin
 routerUser.post('/admin', async (req: Request, res: Response) => {
@@ -117,24 +128,23 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
     const db = await getDb();
     const { username, email, password } = req.body;
 
-     // Validazione avanzata di username
-     if (!username || !validator.isAlphanumeric(username) || username.length < 3 || username.length > 20) {
-      return res.status(400).json({
-        'message': "Username non valido. Deve essere alfanumerico e avere tra 3 e 20 caratteri."
-      });
+      // Validazione avanzata di username
+    if (!validateUsername(username)) {
+      logger.warn('Username non valido', { username }); 
+      return res.status(400).json(responses.invalidUsername);
+      
     }
 
-    // Validazione avanzata di email
-    if (!email || !validator.isEmail(email)) {
-      return res.status(400).json({
-        'message': "Email non valida."
-      });
+    // Validazione email
+    if (!validateEmail(email)) {
+      logger.warn('Email non valida', { email }); 
+      return res.status(400).json(responses.invalidEmail);
     }
 
-    if (!password || password.length < 6) {
-      return res.status(400).json({
-        'message': "Password non valida. Deve contenere almeno 6 caratteri."
-      });
+    // Validazione password
+    if (!validatePassword(password)) {
+      logger.warn('Password non valida', { password }); 
+      return res.status(400).json(responses.invalidPassword);
     }
 
     const salt = await bcrypt.genSalt();
@@ -144,9 +154,7 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
 
     if (existingUser) {
       logger.warn(`Tentativo di registrazione con email già esistente: ${email}`);
-      return res.status(400).json({
-        'message': "Utente già esistente"
-      });
+      return res.status(400).json(responses.userExists);
     }
 
     const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
