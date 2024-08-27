@@ -7,8 +7,10 @@ import { authenticateToken } from "../middleware/authenticateToken";
 
 config()
 
-export const routerUser = express.Router()
+export const routerUser = express.Router();
 
+
+const whitelist=["gabrolr70@gmail.com", "sofiacacca96@gmail.com"];
 async function getDb() {
     return open({
       filename: 'db.sqlite',
@@ -95,6 +97,54 @@ routerUser.post('', async (req: Request, res: Response) => {
   }
 });
 
+// register user as admin
+routerUser.post('/admin', async (req: Request, res: Response) => {
+
+  try {
+    const db = await getDb();
+    const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+      return res.status(400).json({
+        'message': "username, email e password sono richiesti"
+      });
+    }
+
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+
+    if (existingUser) {
+      return res.status(400).json({
+        'message': "utente già esistente"
+      });
+    } else {
+      if(whitelist.includes(email))
+      {
+        const result = await db.run("INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, "true"]);
+      
+      if (result.changes && result.changes > 0) {
+        const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
+        return res.status(200).json({ message: 'Utente registrato', user: user });
+      } else {
+        return res.status(500).json({ message: "si è verificato un errore durante la registrazione" });
+      }
+      }
+      else
+      {
+        return res.status(401).json({ message: 'Email non autorizzata' });
+      }
+    }
+
+  } catch (err) {
+    if(err instanceof Error){
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      return res.status(500).json({ message: 'Errore sconosciuto', err });
+    }
+  }
+});
 
 
 // update user
