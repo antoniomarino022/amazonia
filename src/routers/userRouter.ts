@@ -4,7 +4,8 @@ import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import * as bcrypt from 'bcrypt';
 import validator from "validator";
-import logger from "../logger";
+import logger from "../middleware/logger";
+import schema from "../middleware/passwordValidator";
 import { authenticateToken } from "../middleware/authenticateToken";
 
 config()
@@ -61,9 +62,22 @@ routerUser.post('', async (req: Request, res: Response) => {
     const db = await getDb();
     const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
+    // Validazione avanzata di username
+    if (!username || !validator.isAlphanumeric(username) || username.length < 3 || username.length > 20) {
       return res.status(400).json({
-        'message': "username, email e password sono richiesti"
+        'message': "Username non valido. Deve essere alfanumerico e avere tra 3 e 20 caratteri."
+      });
+    }
+
+   
+    if (!email || !validator.isEmail(email)) {
+      return res.status(400).json({
+        'message': "Email non valida."
+      });
+    }
+    if (!schema.validate(password)) {
+      return res.status(400).json({
+        'message': "Password non valida. Deve essere lunga almeno 8 caratteri, contenere lettere maiuscole e minuscole, almeno un numero, e non deve avere spazi."
       });
     }
 
