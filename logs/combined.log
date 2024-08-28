@@ -1,0 +1,2 @@
+{"level":"info","message":"Tentativo di cancella la tabella users ricevuto","service":"user-service","timestamp":"2024-08-27 23:09:52"}
+{"level":"info","message":"tabella svuotata","service":"user-service","timestamp":"2024-08-27 23:09:52"}

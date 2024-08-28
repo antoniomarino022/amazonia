@@ -20,6 +20,14 @@ async function getDb() {
   };
 
 
+  interface UserRequestBody {
+    username: string;
+    email: string;
+    password: string;
+    is_admin: boolean;
+  }
+  
+  
   // clean users
   routerUser.delete('/clean',async (req:Request,res:Response)=>{
 
@@ -62,116 +70,130 @@ async function getDb() {
 
 // register user
 routerUser.post('', async (req: Request, res: Response) => {
-
   try {
+    const { username, email, password, is_admin }: UserRequestBody = req.body;
 
-    logger.info('Tentativo di registrazione utente ricevuto', { username: req.body.username, email: req.body.email });
+    if (!username || !email || !password || is_admin === undefined) {
+      logger.warn('Parametri mancanti nella richiesta', { body: req.body });
+      return res.status(400).json({ message: 'Alcuni parametri sono mancanti o non validi' });
+    }
 
-    const db = await getDb();
-    const { username, email, password } = req.body;
+    logger.info('Tentativo di registrazione utente ricevuto', { username, email });
 
-    // Validazione avanzata di username
+   
     if (!validateUsername(username)) {
-      logger.warn('Username non valido', { username }); // Log per username non valido
+      logger.warn('Username non valido', { username });
       return res.status(400).json(responses.invalidUsername);
     }
 
-    // Validazione email
     if (!validateEmail(email)) {
-      logger.warn('Email non valida', { email }); // Log per email non valida
+      logger.warn('Email non valida', { email });
       return res.status(400).json(responses.invalidEmail);
     }
 
-    // Validazione password
     if (!validatePassword(password)) {
-      logger.warn('Password non valida', { password }); // Log per password non valida
+      logger.warn('Password non valida');
       return res.status(400).json(responses.invalidPassword);
+    }
+
+    const db = await getDb();
+    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+
+    if (existingUser) {
+      logger.warn('Tentativo di registrazione con email già esistente', { email });
+      return res.status(409).json(responses.userExists);  
     }
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // Verifica se l'utente esiste già
-    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+    const result = await db.run(
+      "INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
+      [username, email, passwordHash, is_admin]
+    );
 
-    if (existingUser) {
-      logger.warn('Tentativo di registrazione con email già esistente', { email }); // Log per tentativo di registrazione con email esistente
-      return res.status(400).json(responses.userExists);
+    if (result.changes && result.changes > 0) {
+      logger.info('Nuovo utente registrato con successo', { username, email, is_admin });
+      const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
+      return res.status(201).json({ message: 'Utente registrato', user }); 
     } else {
-      const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 0]);
-      
-      if (result.changes && result.changes > 0) {
-        logger.info('Nuovo utente registrato con successo', { username, email }); // Log per successo registrazione
-        const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
-        return res.status(200).json({ message: 'Utente registrato', user: user });
-      } else {
-        logger.error('Errore durante la registrazione utente', { username, email }); // Log per errore durante l'inserimento
-        return res.status(500).json({ message: "si è verificato un errore durante la registrazione" });
-      }
+      logger.error('Errore durante la registrazione utente', { username, email });
+      return res.status(500).json({ message: "Si è verificato un errore durante la registrazione" });
     }
 
   } catch (err) {
-    if(err instanceof Error){
-      logger.error('Errore JavaScript durante la registrazione utente', { error: err.message }); // Log per errore JavaScript
-      return res.status(500).json({'message':'errore standar di js','errore':err.message});
-    }else{
-      logger.error('Errore sconosciuto durante la registrazione utente', { error: err }); // Log per errore sconosciuto
+    if (err instanceof Error) {
+      logger.error('Errore JavaScript durante la registrazione utente', { error: err.message });
+      return res.status(500).json({ message: 'Errore interno al server', errore: err.message });
+    } else {
+      logger.error('Errore sconosciuto durante la registrazione utente', { error: err });
       return res.status(500).json({ message: 'Errore sconosciuto', err });
     }
   }
 });
 
 
-// register user as admin
-routerUser.post('/admin', async (req: Request, res: Response) => {
+
+// update user
+routerUser.put('/update/:id', authenticateToken, async (req: Request, res: Response) => {
+  logger.info("Tentativo di modificare l'utente ricevuto", { username: req.body.username });
+
   try {
     const db = await getDb();
-    const { username, email, password } = req.body;
+    const { username, password }: UserRequestBody = req.body;
+    const { id } = req.params;
 
-      // Validazione avanzata di username
+    
+    if (!id) {
+      logger.warn('ID utente mancante nella richiesta', { id: req.params });
+      return res.status(400).json({ message: 'ID utente mancante o non valido' });
+    }
+    
+    if (!username) {
+      logger.warn('Username mancante nella richiesta', { body: req.body });
+      return res.status(400).json({ message: 'Username mancante o non valido' });
+    }
+    if (!password) {
+      logger.warn('Password mancante nella richiesta', { body: req.body });
+      return res.status(400).json({ message: 'Password mancante o non valida' });
+    }
+
     if (!validateUsername(username)) {
-      logger.warn('Username non valido', { username }); 
+      logger.warn('Username non valido', { username });
       return res.status(400).json(responses.invalidUsername);
-      
     }
 
-    // Validazione email
-    if (!validateEmail(email)) {
-      logger.warn('Email non valida', { email }); 
-      return res.status(400).json(responses.invalidEmail);
-    }
-
-    // Validazione password
     if (!validatePassword(password)) {
-      logger.warn('Password non valida', { password }); 
+      logger.warn('Password non valida');
       return res.status(400).json(responses.invalidPassword);
     }
 
+    
+    const user = await db.get('SELECT * FROM users WHERE id = ?', [id]);
+
+    if (!user) {
+      logger.warn('Utente non trovato', { id });
+      return res.status(404).json(responses.notUserExists); 
+    }
+
+    
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
-
-    if (existingUser) {
-      logger.warn(`Tentativo di registrazione con email già esistente: ${email}`);
-      return res.status(400).json(responses.userExists);
-    }
-
-    const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
+    const result = await db.run('UPDATE users SET username = ?, password = ? WHERE id = ?', [username, passwordHash, id]);
 
     if (result.changes && result.changes > 0) {
-      const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
-      logger.info(`Nuovo admin registrato: ${username} (${email})`);
-      return res.status(200).json({ message: 'Utente registrato', user: user });
+      logger.info(`Utente modificato con successo`, { username, id });
+      return res.status(200).json({ message: "Utente modificato con successo" });
     } else {
-      logger.error(`Errore durante la registrazione di ${username} (${email})`);
-      return res.status(500).json({ message: "Si è verificato un errore durante la registrazione" });
+      logger.error("Nessuna modifica applicata all'utente", { username, id });
+      return res.status(304).json({ message: "Nessuna modifica applicata all'utente" }); // Usa 304 per "Not Modified"
     }
   } catch (err) {
-    if(err instanceof Error){
+    if (err instanceof Error) {
       logger.error(`Errore JavaScript: ${err.message}`);
-      return res.status(500).json({'message':'errore standar di js','errore':err.message})
-    }else{
+      return res.status(500).json({ message: 'Errore interno al server', errore: err.message });
+    } else {
       logger.error(`Errore sconosciuto: ${err}`);
       return res.status(500).json({ message: 'Errore sconosciuto', err });
     }
@@ -179,97 +201,49 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
 });
 
 
-// update user
-routerUser.put('/update/:id',authenticateToken ,async (req: Request, res: Response) => {
-  try {
-    const db = await getDb();
-
-    const { username, password } = req.body;
-    const { id } = req.params;
-
-    if (!username || !password) {
-      return res.status(400).json({
-        message: "Username e password sono richiesti"
-      });
-    }
-
-
-    const user = await db.get('SELECT * FROM users WHERE id = ?', [id]);
-
-    if (!user) {
-      return res.status(404).json({
-        message: "Utente non trovato"
-      });
-    }
-
-
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
-
-    const result = await db.run('UPDATE users SET username = ?, password = ? WHERE id = ?', [username,  passwordHash, id]);
-
-    if (result.changes && result.changes > 0) {
-      return res.status(200).json({
-        message: "Utente modificato con successo"
-      });
-    } else {
-      return res.status(400).json({
-        message: "Utente non modificato"
-      });
-    }
-  } catch (err) {
-    if(err instanceof Error){
-      return res.status(500).json({'message':'errore standar di js','errore':err.message})
-    }else{
-      return res.status(500).json({ message: 'Errore sconosciuto', err });
-    }
-  }
-});
-
-
-
 
 
 // delete user
 routerUser.delete('/:id', async (req: Request, res: Response) => {
+  logger.info("Tentativo di eliminare l'utente ricevuto", { 'id': req.params.id });
+
   try {
-    const db = await getDb()
+    const db = await getDb();
     const { id } = req.params;
 
-    if(!id){
-      res.status(400).json({
-        'message':'id richiesto'
-      })
+    if (!id) {
+      logger.warn('ID utente mancante nella richiesta');
+      return res.status(400).json({ message: 'ID richiesto' });
     }
 
     const existingUser = await db.get('SELECT * FROM users WHERE id = ?', [id]);
 
-      if (!existingUser) {
-        return res.status(400).json({
-          'message': "utente non esistente"
-        });
-      }else{
-        const result = await db.run('DELETE FROM users WHERE id = ?',[id]);
+    if (!existingUser) {
+      logger.warn('Utente non trovato', { id });
+      return res.status(404).json(responses.notUserExists);  // Usa 404 per "Not Found"
+    }
 
-        if(result.changes && result.changes > 0){
-          return res.status(200).json({
-            'message':'utente eliminato con successo'
-          });
-        }else{
-           return res.status(400).json({
-            'message':'utente non eliminato'
-          });
-        }
-      }
+    const result = await db.run('DELETE FROM users WHERE id = ?', [id]);
+
+    if (result.changes && result.changes > 0) {
+      logger.info(`Utente eliminato con successo`, { id });
+      return res.status(204).send();  // Usa 204 per "No Content"
+    } else {
+      logger.error('Utente non eliminato', { id });
+      return res.status(400).json({ message: 'Utente non eliminato' });
+    }
 
   } catch (err) {
-    if(err instanceof Error){
-      return res.status(500).json({'message':'errore standar di js','errore':err.message})
-    }else{
+    if (err instanceof Error) {
+      logger.error(`Errore JavaScript: ${err.message}`);
+      return res.status(500).json({ message: 'Errore standard di JavaScript', errore: err.message });
+    } else {
+      logger.error(`Errore sconosciuto: ${err}`);
       return res.status(500).json({ message: 'Errore sconosciuto', err });
     }
   }
 });
+
 
 
 

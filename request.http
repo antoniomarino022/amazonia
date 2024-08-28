@@ -18,19 +18,21 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "username":"massimo bossetti",
+    "username":"antU6jfk",
     "email":"freebossetti@gmail.com",
-    "password":"123456"
+    "password":"12fgrYss"
 }
 
 ### register user as admin
-POST http://localhost:3000/users
+POST http://localhost:3000/users/admin
 Content-Type: application/json
 
 {
-    "username":"massimo bossetti",
-    "email":"freebossetti@gmail.com",
-    "password":"123456"
+    "username":"antU6jfkhhhh",
+    "email":"freeborfssdgetti@gmail.com",
+    "password":"1gshTjh7",
+    "is_admin":1
+
 }
 
 
