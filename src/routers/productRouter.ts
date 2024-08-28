@@ -54,12 +54,16 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
 
     const userId = userFound.userId;
 
-    const isAdmin = userFound.isAdmin;
+    const isAdmin = userFound.is_admin;
 
   
 
 
-    if(isAdmin=="true"){
+
+    
+
+    if(isAdmin==1){
+
       const result = await db.run('INSERT INTO products (userId,nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
       [userId ,nameProduct, price, img, category]
     );
@@ -105,7 +109,8 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
     const db = await getDb();
     const { nameProduct, price, img, category } = req.body;
     const { id } = req.params;
-
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
   
     if (!nameProduct || !price || !img || !category) {
       return res.status(400).json({
@@ -129,22 +134,42 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
       });
     }
 
-    
-    const result = await db.run(
-      'UPDATE products SET nameProduct = ?, price = ?, img = ?, category = ? WHERE id = ?',
-      [nameProduct, price, img, category, id]
-    );
+    const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
 
-    if (result.changes && result.changes > 0) {
-      return res.status(200).json({
-        'message': 'Prodotto aggiornato con successo',
-        'productId': id
-      });
-    } else {
-      return res.status(400).json({
-        'message': 'Nessuna modifica apportata al prodotto'
+    if(!userFound){
+      return res.status(404).json({
+        'message': 'utente non trovato'
       });
     }
+
+    const userId = userFound.userId;
+
+    const isAdmin = userFound.is_admin;
+
+    if(isAdmin==1)
+    {
+      const result = await db.run(
+        'UPDATE products SET nameProduct = ?, price = ?, img = ?, category = ? WHERE id = ?',
+        [nameProduct, price, img, category, id]
+      );
+  
+      if (result.changes && result.changes > 0) {
+        return res.status(200).json({
+          'message': 'Prodotto aggiornato con successo',
+          'productId': id
+        });
+      } else {
+        return res.status(400).json({
+          'message': 'Nessuna modifica apportata al prodotto'
+        });
+      }
+    }
+   else
+   {
+    return res.status(401).json({
+      'message': 'Non hai i permessi per l\'operazione'
+    });
+   }
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({
@@ -164,7 +189,7 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
 // delete product
  // da sistemare
 routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Response)=>{
-
+  
 
   try {
 
@@ -188,25 +213,43 @@ routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Respon
         'message': 'Prodotto non trovato'
       });
     }
-    
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
 
-    const result = await db.run(
-      'DELETE from products WHERE id = ?',[id]
-    );
-
-    if (result.changes && result.changes > 0) {
-      return res.status(200).json({
-        'message': 'Prodotto eliminato con successo',
-        'productId': id
-      });
-    } else {
-      return res.status(400).json({
-        'message': 'prodotto non eliminato'
+    if(!userFound){
+      return res.status(404).json({
+        'message': 'utente non trovato'
       });
     }
 
+    const userId = userFound.userId;
 
+    const isAdmin = userFound.is_admin;
 
+    if(isAdmin==1)
+    {
+      const result = await db.run(
+        'DELETE from products WHERE id = ?',[id]
+      );
+  
+      if (result.changes && result.changes > 0) {
+        return res.status(200).json({
+          'message': 'Prodotto eliminato con successo',
+          'productId': id
+        });
+      } else {
+        return res.status(400).json({
+          'message': 'prodotto non eliminato'
+        });
+      }
+    }
+    else
+    {
+      return res.status(401).json({
+        'message': 'Non hai i permessi per l\'operazione'
+      });
+    }
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({
