@@ -34,7 +34,7 @@ routerAuth.delete('/clean', async (req: Request, res: Response) => {
     if (result.changes && result.changes > 0) {
       return res.status(200).json({ message: `${result.changes} record(s) eliminati dalla tabella auth.` });
     } else {
-      return res.status(204).json({ message: 'Nessun record trovato nella tabella auth.' });
+      return res.status(404).json({ message: 'Nessun record trovato nella tabella auth.' });
     }
   } catch (err) {
     if(err instanceof Error){
