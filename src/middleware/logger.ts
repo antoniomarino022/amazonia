@@ -12,8 +12,8 @@ const logger = createLogger({
   ),
   defaultMeta: { service: 'user-service' }, // Meta informazioni comuni in tutti i log
   transports: [
-    new transports.File({ filename: 'error.log', level: 'error' }), // Log solo errori su 'error.log'
-    new transports.File({ filename: 'combined.log' }) // Log tutti i messaggi su 'combined.log'
+    new transports.File({ filename: 'logs/error.log', level: 'error' }), // Log solo errori su 'error.log'
+    new transports.File({ filename: 'logs/combined.log' }) // Log tutti i messaggi su 'combined.log'
   ]
 });
 

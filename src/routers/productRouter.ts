@@ -3,6 +3,8 @@ import { config } from "dotenv";
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import { authenticateToken } from "../middleware/authenticateToken";
+import logger from "../middleware/logger";
+import { responses } from "../utils/responses";
 
 config()
 
@@ -15,31 +17,39 @@ async function getDb() {
     });
   };
 
+   interface requestProductBody{
+    nameProduct:string,
+    price:number,
+    img:string,
+    category:string
+    
+   }
+
 
 //  add product
 routerProduct.post('', authenticateToken, async (req: Request, res: Response) => {
 
   try {
     const db = await getDb();
-    const { nameProduct, price, img, category} = req.body;
+    const { nameProduct, price, img, category}:requestProductBody = req.body;
     
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
-
     
     if (!nameProduct || !price || !img || !category ) {
+      logger.warn('Parametri mancanti nella richiesta', { body: req.body })
       return res.status(400).json({
-        'message': 'nameProduct, price, img e category sono richiesti'
+        'message': 'Parametri mancanti nella richiesta'
       });
     }
+
+    logger.info('tentativo di aggiungere un prodotto ricevuto')
 
     const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
 
     if(!userFound){
-      return res.status(404).json({
-        'message': 'utente non trovato'
-      });
+      return res.status(404).json(responses.notUserExists);
     }
 
     const userId = userFound.userId;
@@ -49,24 +59,30 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
   
 
 
-    if(isAdmin==1)
-    {
+
+    
+
+    if(isAdmin==1){
+
       const result = await db.run('INSERT INTO products (userId,nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
       [userId ,nameProduct, price, img, category]
     );
 
     if (result.changes && result.changes > 0) {
-      return res.status(200).json({
+      logger.info("Prodotto aggiunto con successo",result.lastID)
+      return res.status(201).json({
         'message': 'Prodotto aggiunto con successo', 'product': result.lastID
       });
     } else {
-      return res.status(400).json({
+      logger.error('Prodotto non aggiunto');
+      return res.status(500).json({
         'message': 'Prodotto non aggiunto',
       });
     }
     }
     else
     {
+      logger.warn(userId,'non è un admin')
       return res.status(401).json({
         'message': 'Non sei un admin, permesso negato',
       });
@@ -75,8 +91,10 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
 
   } catch (err) {
     if (err instanceof Error) {
+      logger.error('Errore JavaScript durante la registrazione utente', { error: err.message });
       return res.status(500).json({ message: 'Errore standar di js', error: err.message});
     } else {
+      logger.error('Errore sconosciuto durante la registrazione utente', { error: err });
       return res.status(500).json({ message: 'Errore sconosciuto' });
     }
   }
@@ -84,6 +102,7 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
 
 
 //  update product
+// da sistemare
 routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Response) => {
 
   try {
@@ -168,7 +187,7 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
 
 
 // delete product
-
+ // da sistemare
 routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Response)=>{
   
 
@@ -178,11 +197,14 @@ routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Respon
     const { id } = req.params;
 
     if(!id){
+      logger.warn('id mancante',id);
       return res.status(400).json({
         'message': 'ID del prodotto è richiesto'
       });
     }
 
+   
+    logger.info('tentativo di eliminare un prodotto ricevuto')
 
     const existingProduct = await db.get('SELECT id FROM products WHERE id = ?', [id]);
 
