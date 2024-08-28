@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/e766c69f-00fa-4743-999a-0bfbd68ce471)
+
 # **Amazonia**
 Questo progetto è una piattaforma di e-commerce ispirata ad Amazon, progettata per permettere agli utenti di navigare, cercare e acquistare prodotti online. 
 Gli utenti possono registrarsi, accedere, aggiungere prodotti al carrello, effettuare pagamenti sicuri e tracciare i loro ordini. 
