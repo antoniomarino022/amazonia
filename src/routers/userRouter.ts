@@ -12,6 +12,8 @@ config()
 
 export const routerUser = express.Router();
 
+const whitelist = ["gabrolr70@gmail.com", "sofiacacca96@gmai.com"];
+
 async function getDb() {
     return open({
       filename: 'db.sqlite',
@@ -156,27 +158,33 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
       logger.warn(`Tentativo di registrazione con email già esistente: ${email}`);
       return res.status(400).json(responses.userExists);
     }
+    if(whitelist.includes(email))
+    {
+      const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
 
-    const result = await db.run("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)", [username, email, passwordHash, 1]);
-
-    if (result.changes && result.changes > 0) {
-      const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
-      logger.info(`Nuovo admin registrato: ${username} (${email})`);
-      return res.status(200).json({ message: 'Utente registrato', user: user });
-    } else {
-      logger.error(`Errore durante la registrazione di ${username} (${email})`);
-      return res.status(500).json({ message: "Si è verificato un errore durante la registrazione" });
+      if (result.changes && result.changes > 0) {
+        const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
+        logger.info(`Nuovo admin registrato: ${username} (${email})`);
+        return res.status(200).json({ message: 'Utente registrato', user: user });
+      } else {
+        logger.error(`Errore durante la registrazione di ${username} (${email})`);
+        return res.status(500).json({ message: "Si è verificato un errore durante la registrazione" });
+      }
+    }
+    else
+    {
+      return res.status(401).json({ message: "Non è un email admin" });
     }
   } catch (err) {
-    if(err instanceof Error){
-      logger.error(`Errore JavaScript: ${err.message}`);
-      return res.status(500).json({'message':'errore standar di js','errore':err.message})
-    }else{
-      logger.error(`Errore sconosciuto: ${err}`);
-      return res.status(500).json({ message: 'Errore sconosciuto', err });
-    }
-  }
-});
+      if(err instanceof Error){
+        logger.error(`Errore JavaScript: ${err.message}`);
+        return res.status(500).json({'message':'errore standar di js','errore':err.message})
+      }else{
+        logger.error(`Errore sconosciuto: ${err}`);
+        return res.status(500).json({ message: 'Errore sconosciuto', err });
+      }
+    } 
+  });
 
 
 // update user
