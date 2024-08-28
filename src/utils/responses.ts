@@ -8,7 +8,9 @@ export const responses = {
     unknownError: { message: "Errore sconosciuto." },
     notUserExists:{ message: "Utente non trovato" },
     invalidToken:{message: "token non valido"},
-    idNotValid:{message:"id non valido"}
+    idNotValid:{message:"id non valido"},
+    notAdmin:{message: "Utente specificato non è admin"},
+    alreadyAdmin:{message: 'L\'utente è un admin già!'}
   };
 
 
