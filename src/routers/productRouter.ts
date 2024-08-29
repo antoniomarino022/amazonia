@@ -54,13 +54,9 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
 
     const userId = userFound.userId;
 
-    const isAdmin = userFound.is_admin;
+    const user = await db.get("SELECT * FROM users WHERE id = ?", [userId])
 
-  
-
-
-
-    
+    const isAdmin = user.is_admin;
 
     if(isAdmin==1){
 
@@ -102,7 +98,6 @@ routerProduct.post('', authenticateToken, async (req: Request, res: Response) =>
 
 
 //  update product
-// da sistemare
 routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Response) => {
 
   try {
@@ -144,7 +139,9 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
 
     const userId = userFound.userId;
 
-    const isAdmin = userFound.is_admin;
+    const user = await db.get("SELECT * FROM users WHERE id = ?", [userId])
+
+    const isAdmin = user.is_admin;
 
     if(isAdmin==1)
     {
@@ -187,7 +184,6 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
 
 
 // delete product
- // da sistemare
 routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Response)=>{
   
 
@@ -225,7 +221,9 @@ routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Respon
 
     const userId = userFound.userId;
 
-    const isAdmin = userFound.is_admin;
+    const user = await db.get("SELECT * FROM users WHERE id = ?", [id]);
+
+    const isAdmin = user.is_admin;
 
     if(isAdmin==1)
     {
