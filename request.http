@@ -23,6 +23,9 @@ Content-Type: application/json
     "password":"12fgrYss"
 }
 
+
+
+
 ### register user as admin
 POST http://localhost:3000/users/admin
 Content-Type: application/json
@@ -32,6 +35,23 @@ Content-Type: application/json
     "email":"freeborfssdgetti@gmail.com",
     "password":"1gshTjh7"
 }
+
+
+
+
+
+###revoke admin permissions
+PUT http://localhost:3000/users/admin/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzI0OTM4MjAwLCJleHAiOjE3MjQ5NDAwMDB9.0WxIqMeJPYceU1GJFOkCuTw4I9-DVHd9us6DZcWXVE8
+
+
+
+
+
+
+
+
 
 
 
@@ -55,8 +75,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email":"freebossetti@gmail.com",
-    "password":"123456"
+    "email":"gabrolr70@gmail.com",
+    "password":"1gshTjh7"
 }
 
 

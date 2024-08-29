@@ -63,6 +63,9 @@ async function getDb() {
   
   })
 
+
+
+
 // register user
 routerUser.post('', async (req: Request, res: Response) => {
   try {
@@ -126,6 +129,9 @@ routerUser.post('', async (req: Request, res: Response) => {
       return res.status(500).json({ message: 'Errore sconosciuto', err });
     }
   }});
+
+
+
 
 // update user
 routerUser.put('/update/:id', authenticateToken, async (req: Request, res: Response) => {
@@ -192,6 +198,9 @@ routerUser.put('/update/:id', authenticateToken, async (req: Request, res: Respo
     }
   }
 });
+
+
+
 
 // delete user
 routerUser.delete('/:id', async (req: Request, res: Response) => {
@@ -304,6 +313,8 @@ routerUser.post('/admin', async (req: Request, res: Response) => {
     }
   }});
 
+
+  
 // revoke admin permissions
 routerUser.put('/admin/:id', authenticateToken, async (req: Request, res: Response) => {
   logger.info("Tentativo di modificare l'admin ricevuto", { username: req.body.username });
@@ -395,6 +406,9 @@ routerUser.put('/admin/:id', authenticateToken, async (req: Request, res: Respon
     }
   }
 });
+
+
+
 
 // delete user
 routerUser.delete('/:id', async (req: Request, res: Response) => {
