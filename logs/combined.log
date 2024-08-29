@@ -1,2 +1,14 @@
 {"level":"info","message":"Tentativo di cancella la tabella users ricevuto","service":"user-service","timestamp":"2024-08-27 23:09:52"}
 {"level":"info","message":"tabella svuotata","service":"user-service","timestamp":"2024-08-27 23:09:52"}
+{"email":"freeborfssdgetti@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-08-29 15:23:31","username":"antU6jfkhhhh"}
+{"level":"warn","message":"Tentativo di registrazione admin senza email giusta","service":"user-service","timestamp":"2024-08-29 15:23:31"}
+{"email":"freeborti@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-08-29 15:23:45","username":"antU6jfkhhhh"}
+{"level":"warn","message":"Tentativo di registrazione admin senza email giusta","service":"user-service","timestamp":"2024-08-29 15:23:45"}
+{"email":"freeborti@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-08-29 15:25:36","username":"antU6jfkhhhh"}
+{"level":"warn","message":"Tentativo di registrazione admin senza email giusta","service":"user-service","timestamp":"2024-08-29 15:25:36"}
+{"email":"gabrolr70@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-08-29 15:25:58","username":"antU6jfkhhhh"}
+{"email":"gabrolr70@gmail.com","isAdmin":"true","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-08-29 15:25:58","username":"antU6jfkhhhh"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-08-29 15:30:00"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-08-29 15:30:00"}
+{"level":"info","message":"Tentativo di modificare l'admin ricevuto","service":"user-service","timestamp":"2024-08-29 15:30:13"}
+{"id":"6","level":"info","message":"Utente modificato con successo","service":"user-service","timestamp":"2024-08-29 15:30:13"}
