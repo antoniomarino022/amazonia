@@ -12,3 +12,20 @@
 {"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-08-29 15:30:00"}
 {"level":"info","message":"Tentativo di modificare l'admin ricevuto","service":"user-service","timestamp":"2024-08-29 15:30:13"}
 {"id":"6","level":"info","message":"Utente modificato con successo","service":"user-service","timestamp":"2024-08-29 15:30:13"}
+{"email":"freebossetti@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-08-30 15:40:09","username":"antU6jfk"}
+{"email":"freebossetti@gmail.com","isAdmin":"false","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-08-30 15:40:09","username":"antU6jfk"}
+{"level":"info","message":"tentativo di svuotare la tabella auth ricevuto","service":"user-service","timestamp":"2024-08-30 15:40:13"}
+{"level":"info","message":"Tentativo di cancella la tabella users ricevuto","service":"user-service","timestamp":"2024-08-30 15:40:15"}
+{"level":"info","message":"tabella svuotata","service":"user-service","timestamp":"2024-08-30 15:40:15"}
+{"email":"gabrolr70@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-08-30 15:40:20","username":"antU6jfkhhhh"}
+{"email":"gabrolr70@gmail.com","isAdmin":"true","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-08-30 15:40:20","username":"antU6jfkhhhh"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-08-30 15:40:59"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-08-30 15:40:59"}
+{"level":"info","message":"Tentativo di modificare l'admin ricevuto","service":"user-service","timestamp":"2024-08-30 15:41:46"}
+{"id":"6","level":"warn","message":"Utente non trovato","service":"user-service","timestamp":"2024-08-30 15:41:46"}
+{"level":"info","message":"Tentativo di modificare l'admin ricevuto","service":"user-service","timestamp":"2024-08-30 15:41:57"}
+{"id":"8","level":"info","message":"Utente modificato con successo","service":"user-service","timestamp":"2024-08-30 15:41:57"}
+{"level":"info","message":"Tentativo di modificare l'admin ricevuto","service":"user-service","timestamp":"2024-08-30 15:42:15"}
+{"id":"8","level":"warn","message":"L'utente non è un admin","service":"user-service","timestamp":"2024-08-30 15:42:15"}
+{"level":"info","message":"Tentativo di modificare l'admin ricevuto","service":"user-service","timestamp":"2024-08-30 15:43:20"}
+{"id":"8","level":"info","message":"Utente modificato con successo","service":"user-service","timestamp":"2024-08-30 15:43:20"}

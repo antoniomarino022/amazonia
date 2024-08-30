@@ -43,11 +43,19 @@ Content-Type: application/json
 
 
 ###revoke admin permissions
-PUT http://localhost:3000/users/admin/6
+PUT http://localhost:3000/users/admin/8
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzI0OTM4MjAwLCJleHAiOjE3MjQ5NDAwMDB9.0WxIqMeJPYceU1GJFOkCuTw4I9-DVHd9us6DZcWXVE8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzI1MDI1MjU5LCJleHAiOjE3MjUwMjcwNTl9.gDLI2XDPg7MrO8Jz6bAvTOEFGXcTw9x8iaN0df0ozTY
 
 
+
+
+
+### grant admin permissions
+
+PUT http://localhost:3000/users/admin/grant/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzI1MDI1MjU5LCJleHAiOjE3MjUwMjcwNTl9.gDLI2XDPg7MrO8Jz6bAvTOEFGXcTw9x8iaN0df0ozTY
 
 
 

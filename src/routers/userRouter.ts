@@ -361,8 +361,11 @@ routerUser.put('/admin/:id', authenticateToken, async (req: Request, res: Respon
   }
 });
 
+
+
+
 // grant admin permissions
-routerUser.put('/admin/:id', authenticateToken, async (req: Request, res: Response) => {
+routerUser.put('/admin/grant/:id', authenticateToken, async (req: Request, res: Response) => {
   logger.info("Tentativo di modificare l'admin ricevuto", { username: req.body.username });
 
   try {
