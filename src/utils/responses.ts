@@ -7,10 +7,13 @@ export const responses = {
     registrationError: { message: "Si è verificato un errore durante la registrazione." },
     unknownError: { message: "Errore sconosciuto." },
     notUserExists:{ message: "Utente non trovato" },
-    invalidToken:{message: "token non valido"},
-    idNotValid:{message:"id non valido"},
+    invalidToken:{message: "Token non valido"},
+    idNotValid:{message:"Id non valido"},
     notAdmin:{message: "Utente specificato non è admin"},
-    alreadyAdmin:{message: 'L\'utente è un admin già!'}
+    alreadyAdmin:{message: "L'utente è un admin già!"},
+    notFoundProduct:{message:'Prodotto non trovato'},
+    productExist:{message:'Prodotto già esistente'},
+    notHeader:{message:'Autorizzazione mancante'},
   };
 
 

@@ -28,73 +28,79 @@ async function getDb() {
 
 //  add product
 routerProduct.post('', authenticateToken, async (req: Request, res: Response) => {
-
   try {
     const db = await getDb();
-    const { nameProduct, price, img, category}:requestProductBody = req.body;
+    const { nameProduct, price, img, category }: requestProductBody = req.body;
     
     const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+    if (!authHeader) {
+      logger.warn('Nessun header di autorizzazione presente');
+      return res.status(401).json({ message: 'Autorizzazione mancante' });
+    }
+    
+    const token = authHeader.split(" ")[1];
 
     
-    if (!nameProduct || !price || !img || !category ) {
-      logger.warn('Parametri mancanti nella richiesta', { body: req.body })
-      return res.status(400).json({
-        'message': 'Parametri mancanti nella richiesta'
-      });
+    if (!nameProduct || !price || !img || !category) {
+      logger.warn('Parametri mancanti nella richiesta', { body: req.body });
+      return res.status(400).json({ message: 'Parametri mancanti nella richiesta' });
     }
 
-    logger.info('tentativo di aggiungere un prodotto ricevuto')
+    logger.info('Tentativo di aggiungere un prodotto ricevuto');
 
-    const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
+    
+    const verifyUser = await db.get('SELECT userId FROM auth WHERE token = ?', [token]);
 
-    if(!userFound){
-      return res.status(404).json(responses.notUserExists);
+    if (!verifyUser) {
+      logger.warn('Utente non autenticato', { token });
+      return res.status(401).json({ message: 'Utente non autenticato' });
     }
 
-    const userId = userFound.userId;
+    const userId = verifyUser.userId;
 
-    const user = await db.get("SELECT * FROM users WHERE id = ?", [userId])
+   
+    const userData = await db.get('SELECT is_admin FROM users WHERE id = ?', [userId]);
 
-    const isAdmin = user.is_admin;
+    if (!userData) {
+      logger.warn('Utente non trovato nella tabella users', { userId });
+      return res.status(404).json({ message: 'Utente non trovato' });
+    }
 
-    if(isAdmin==1){
+    const isAdmin = userData.is_admin;
 
-      const result = await db.run('INSERT INTO products (userId,nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
-      [userId ,nameProduct, price, img, category]
-    );
+    if (isAdmin === 1) {
+      const result = await db.run(
+        'INSERT INTO products (userId, nameProduct, price, img, category) VALUES (?, ?, ?, ?, ?)',
+        [userId, nameProduct, price, img, category]
+      );
 
-    if (result.changes && result.changes > 0) {
-      logger.info("Prodotto aggiunto con successo",result.lastID)
-      return res.status(201).json({
-        'message': 'Prodotto aggiunto con successo', 'product': result.lastID
-      });
+      if (result.changes && result.changes > 0) {
+        logger.info('Prodotto aggiunto con successo', { productId: result.lastID });
+        return res.status(201).json({
+          message: 'Prodotto aggiunto con successo',
+          product: result.lastID
+        });
+      } else {
+        logger.error('Prodotto non aggiunto');
+        return res.status(500).json({ message: 'Prodotto non aggiunto' });
+      }
     } else {
-      logger.error('Prodotto non aggiunto');
-      return res.status(500).json({
-        'message': 'Prodotto non aggiunto',
-      });
+      logger.warn('Utente non autorizzato', { userId });
+      return res.status(403).json({ message: 'Non sei un admin, permesso negato' });
     }
-    }
-    else
-    {
-      logger.warn(userId,'non è un admin')
-      return res.status(401).json({
-        'message': 'Non sei un admin, permesso negato',
-      });
-    }
-    
 
   } catch (err) {
     if (err instanceof Error) {
-      logger.error('Errore JavaScript durante la registrazione utente', { error: err.message });
-      return res.status(500).json({ message: 'Errore standar di js', error: err.message});
+      logger.error("Errore JavaScript durante l'aggiunta del prodotto", { error: err.message });
+      return res.status(500).json({ message: 'Errore standard di JavaScript', error: err.message });
     } else {
-      logger.error('Errore sconosciuto durante la registrazione utente', { error: err });
+      logger.error("Errore sconosciuto durante l'aggiunta del prodotto", { error: err });
       return res.status(500).json({ message: 'Errore sconosciuto' });
     }
   }
 });
+
+
 
 
 //  update product
@@ -104,44 +110,49 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
     const db = await getDb();
     const { nameProduct, price, img, category } = req.body;
     const { id } = req.params;
+
     const authHeader = req.headers["authorization"];
+    if (!authHeader) {
+      logger.warn('Nessun header di autorizzazione presente');
+      return res.status(401).json(responses.notHeader);
+    }
     const token = authHeader && authHeader.split(" ")[1];
   
     if (!nameProduct || !price || !img || !category) {
+      logger.warn('Parametri mancanti nella richiesta')
       return res.status(400).json({
-        'message': 'nameProduct, price, img e category sono richiesti'
+        'message': 'Parametri mancanti nella richiesta'
       });
     }
 
     
     if (!id) {
-      return res.status(400).json({
-        'message': 'ID del prodotto è richiesto'
-      });
+      logger.warn('id non valido o mancante',id)
+      return res.status(400).json(responses.idNotValid);
     }
 
+    logger.info('tentativo di aggiornare un prodotto ricevuto')
 
-    const existingProduct = await db.get('SELECT id FROM products WHERE id = ?', [id]);
 
-    if (!existingProduct) {
-      return res.status(404).json({
-        'message': 'Prodotto non trovato'
-      });
+    const verifyUser = await db.get('SELECT userId FROM auth WHERE token = ?', [token]);
+
+    if (!verifyUser) {
+      logger.warn('Utente non autenticato', { token });
+      return res.status(401).json({ message: 'Utente non autenticato' });
     }
 
-    const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
+    const userId = verifyUser.userId;
 
-    if(!userFound){
-      return res.status(404).json({
-        'message': 'utente non trovato'
-      });
+   
+    const userData = await db.get('SELECT is_admin FROM users WHERE id = ?', [userId]);
+
+    if (!userData) {
+      logger.warn('Utente non trovato nella tabella users', { userId });
+      return res.status(404).json({ message: 'Utente non trovato' });
     }
 
-    const userId = userFound.userId;
+    const isAdmin = userData.is_admin;
 
-    const user = await db.get("SELECT * FROM users WHERE id = ?", [userId])
-
-    const isAdmin = user.is_admin;
 
     if(isAdmin==1)
     {
@@ -151,32 +162,31 @@ routerProduct.put('/update/:id', authenticateToken, async (req: Request, res: Re
       );
   
       if (result.changes && result.changes > 0) {
+        logger.info('Prodotto  aggiornato con successo',id)
         return res.status(200).json({
           'message': 'Prodotto aggiornato con successo',
           'productId': id
         });
       } else {
+        logger.warn('Nessuna modifica apportata al prodotto')
         return res.status(400).json({
           'message': 'Nessuna modifica apportata al prodotto'
         });
       }
     }
-   else
-   {
+   else{
+    logger.warn("Non hai i permessi per l'operazione")
     return res.status(401).json({
-      'message': 'Non hai i permessi per l\'operazione'
+      'message': "Non hai i permessi per l'operazione"
     });
    }
   } catch (err) {
     if (err instanceof Error) {
-      return res.status(500).json({
-        'message': 'Errore standard di js',
-        'error': err.message
-      });
+      logger.error("Errore JavaScript durante l'aggiornamento del prodotto", { error: err.message });
+      return res.status(500).json({ message: 'Errore standard di JavaScript', error: err.message });
     } else {
-      return res.status(500).json({
-        'message': 'Errore sconosciuto'
-      });
+      logger.error("Errore sconosciuto durante l'aggiornamento del prodotto", { error: err });
+      return res.status(500).json({ message: 'Errore sconosciuto' });
     }
   }
 });
@@ -194,9 +204,7 @@ routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Respon
 
     if(!id){
       logger.warn('id mancante',id);
-      return res.status(400).json({
-        'message': 'ID del prodotto è richiesto'
-      });
+      return res.status(400).json(responses.idNotValid);
     }
 
    
@@ -205,59 +213,70 @@ routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Respon
     const existingProduct = await db.get('SELECT id FROM products WHERE id = ?', [id]);
 
     if (!existingProduct) {
-      return res.status(404).json({
-        'message': 'Prodotto non trovato'
-      });
+      return res.status(404).json(responses.notFoundProduct);
     }
+
     const authHeader = req.headers["authorization"];
+    if (!authHeader) {
+      logger.warn('Nessun header di autorizzazione presente');
+      return res.status(401).json(responses.notHeader);
+    }
     const token = authHeader && authHeader.split(" ")[1];
-    const userFound = await db.get('SELECT userID FROM auth WHERE token = ?',[token]);
 
-    if(!userFound){
-      return res.status(404).json({
-        'message': 'utente non trovato'
-      });
+    
+    const verifyUser = await db.get('SELECT userId FROM auth WHERE token = ?', [token]);
+
+    if (!verifyUser) {
+      logger.warn('Utente non autenticato', { token });
+      return res.status(401).json({ message: 'Utente non autenticato' });
     }
 
-    const userId = userFound.userId;
+    const userId = verifyUser.userId;
 
-    const user = await db.get("SELECT * FROM users WHERE id = ?", [id]);
+   
+    const userData = await db.get('SELECT is_admin FROM users WHERE id = ?', [userId]);
 
-    const isAdmin = user.is_admin;
+    if (!userData) {
+      logger.warn('Utente non trovato nella tabella users', { userId });
+      return res.status(404).json({ message: 'Utente non trovato' });
+    }
 
-    if(isAdmin==1)
-    {
+    const isAdmin = userData.is_admin;
+
+
+
+   
+    if(isAdmin==1){
       const result = await db.run(
         'DELETE from products WHERE id = ?',[id]
       );
   
       if (result.changes && result.changes > 0) {
+        logger.info('Prodotto eliminato con successo',id)
         return res.status(200).json({
           'message': 'Prodotto eliminato con successo',
           'productId': id
         });
       } else {
+        logger.warn('prodotto non eliminato')
         return res.status(400).json({
           'message': 'prodotto non eliminato'
         });
       }
     }
-    else
-    {
+    else{
       return res.status(401).json({
-        'message': 'Non hai i permessi per l\'operazione'
+        'message': "Non hai i permessi per l'operazione"
       });
     }
   } catch (err) {
     if (err instanceof Error) {
-      return res.status(500).json({
-        'message': 'Errore standard di js',
-        'error': err.message
-      });
+      logger.error("Errore JavaScript durante l'aggiunta del prodotto", { error: err.message });
+      return res.status(500).json({ message: 'Errore standard di JavaScript', error: err.message });
     } else {
-      return res.status(500).json({
-        'message': 'Errore sconosciuto'
-      });
+      logger.error("Errore sconosciuto durante l'aggiunta del prodotto", { error: err });
+      return res.status(500).json({ message: 'Errore sconosciuto' });
     }
+    
   }
 })

@@ -1,0 +1,12 @@
+{"error":"SQLITE_ERROR: no such column: is_admin","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 16:37:21"}
+{"error":"SQLITE_ERROR: no such column: is_admin","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 16:42:06"}
+{"error":"SQLITE_ERROR: no such column: is_admin","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 16:43:46"}
+{"error":"SQLITE_ERROR: no such column: is_admin","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 16:44:15"}
+{"error":"SQLITE_RANGE: column index out of range","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 16:47:34"}
+{"error":"SQLITE_ERROR: no such column: is_admin","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 16:49:05"}
+{"error":"SQLITE_ERROR: no such column: userId","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 19:14:56"}
+{"error":"SQLITE_ERROR: no such column: userId","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 19:14:58"}
+{"error":"SQLITE_ERROR: no such column: userId","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 19:17:15"}
+{"error":"SQLITE_ERROR: no such column: userId","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 19:17:42"}
+{"error":"SQLITE_ERROR: no such column: userId","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 19:18:51"}
+{"error":"SQLITE_ERROR: no such column: userId","level":"error","message":"Errore JavaScript durante l'aggiunta del prodotto","service":"user-service","timestamp":"2024-08-30 21:15:47"}

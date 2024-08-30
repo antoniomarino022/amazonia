@@ -32,7 +32,7 @@ Content-Type: application/json
 
 {
     "username":"antU6jfkhhhh",
-    "email":"freeborfssdgetti@gmail.com",
+    "email":"gabrolr70@gmail.com",
     "password":"1gshTjh7"
 }
 
@@ -109,7 +109,7 @@ Content-Type: application/json
 ### add product
 POST http://localhost:3000/product
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTcyNDY5NDY1NSwiZXhwIjoxNzI0Njk2NDU1fQ.KvqiN_Jc7z6-xaSCEXmqntH2-SeaFsISS6MVZ9OQcuE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTcyNTA0NTMxOCwiZXhwIjoxNzI1MDQ3MTE4fQ.VHtZRC-cExMEO0T4HH4k3GjFEiwkNdvG6i0y21xWirk
 
 {
     "nameProduct":"porno a microonde",
@@ -122,9 +122,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6M
 
 
 ### update product
-PUT http://localhost:3000/product/update/1
+PUT http://localhost:3000/product/update/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTcyNDY5NjczOCwiZXhwIjoxNzI0Njk4NTM4fQ.EPKNAYHhWi-BulHXpQLsTMb9gkTLQdRSsSa3NHUBGho
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTcyNTA0NTMxOCwiZXhwIjoxNzI1MDQ3MTE4fQ.VHtZRC-cExMEO0T4HH4k3GjFEiwkNdvG6i0y21xWirk
+
 
 {
     "nameProduct":"forno a microonde",
@@ -135,9 +136,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6M
 
 
 ### delete product
-DELETE  http://localhost:3000/product/1
+DELETE  http://localhost:3000/product/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTcyNDY5NjczOCwiZXhwIjoxNzI0Njk4NTM4fQ.EPKNAYHhWi-BulHXpQLsTMb9gkTLQdRSsSa3NHUBGho
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTcyNTA0NTMxOCwiZXhwIjoxNzI1MDQ3MTE4fQ.VHtZRC-cExMEO0T4HH4k3GjFEiwkNdvG6i0y21xWirk
 
 
 
