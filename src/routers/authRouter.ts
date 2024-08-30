@@ -128,6 +128,10 @@ routerAuth.delete('/logout', authenticateToken, async (req: Request, res: Respon
   try {
     const db = await getDb();
     const authHeader = req.headers["authorization"];
+    if (!authHeader) {
+      logger.warn('Nessun header di autorizzazione presente');
+      return res.status(401).json({ message: 'Autorizzazione mancante' });
+    }
     const token = authHeader?.split(" ")[1];
 
     if (!token) {

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
+import logger from "./logger";
 
 
 config();
@@ -18,6 +19,10 @@ export const authenticateToken = (
 ) => {
   // Estrae il token dall'header Authorization della richiesta
   const authHeader = req.headers["authorization"];
+  if (!authHeader) {
+    logger.warn('Nessun header di autorizzazione presente');
+    return res.status(401).json({ message: 'Autorizzazione mancante' });
+  }
   const token = authHeader && authHeader.split(" ")[1];
 
   // Se il token non è presente, restituisce uno status 401 (Unauthorized)
