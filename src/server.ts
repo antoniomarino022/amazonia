@@ -4,6 +4,7 @@ import { routerUser } from './routers/userRouter';
 import { routerAuth } from './routers/authRouter';
 import { routerProduct } from './routers/productRouter';
 import { routerOrder } from './routers/orderRouter';
+import { routerOrderProduct } from './routers/orderProductRouter';
 import { routerCart } from './routers/cartRouter';
 import { getDb } from './db';
 
@@ -91,6 +92,7 @@ app.use('/auth', routerAuth);
 app.use('/product', routerProduct);
 app.use('/order', routerOrder);
 app.use('/cart', routerCart);
+app.use('/orderProduct',routerOrderProduct);
 
 // Avvia il server
 app.listen(port, () => {

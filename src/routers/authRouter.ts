@@ -4,7 +4,7 @@ import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import * as bcrypt from 'bcrypt';
 import logger from "../middleware/logger";
-import { validateUsername,validateEmail,validatePassword } from "../middleware/validators";
+import {validateEmail,validatePassword } from "../middleware/validators";
 import { responses } from "../utils/responses";
 import { authenticateToken, generateAccessToken } from "../middleware/authenticateToken";
 
