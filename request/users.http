@@ -1,0 +1,70 @@
+###clean users
+DELETE http://localhost:3000/users/clean
+Content-Type: application/json
+Authorization: Bearer
+
+
+### register user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username":"antU6jfk",
+    "email":"freebossetti@gmail.com",
+    "password":"12fgrYss"
+}
+
+
+
+
+### register user as admin
+POST http://localhost:3000/users/admin
+Content-Type: application/json
+
+{
+    "username":"antU6jfkhhhh",
+    "email":"gabrolr70@gmail.com",
+    "password":"1gshTjh7"
+}
+
+
+
+
+
+###revoke admin permissions
+PUT http://localhost:3000/users/admin/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzI1MDI1MjU5LCJleHAiOjE3MjUwMjcwNTl9.gDLI2XDPg7MrO8Jz6bAvTOEFGXcTw9x8iaN0df0ozTY
+
+
+
+
+
+### grant admin permissions
+
+PUT http://localhost:3000/users/admin/grant/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzI1MDI1MjU5LCJleHAiOjE3MjUwMjcwNTl9.gDLI2XDPg7MrO8Jz6bAvTOEFGXcTw9x8iaN0df0ozTY
+
+
+
+
+### update user
+PUT http://localhost:3000/users/update/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzI0NTI3NzIzLCJleHAiOjE3MjQ1Mjk1MjN9.DqBogZPAQWQaGb90p8JGezsN7YOf5Dst3KuXopqTZiw
+
+
+
+{
+    "username":"massimo bossetti2",
+    "password":"12345"
+}
+
+
+
+### delete user
+DELETE http://localhost:3000/users/7
+Content-Type: application/json
+
+

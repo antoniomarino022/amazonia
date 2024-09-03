@@ -19,7 +19,7 @@ async function getDb() {
 
 
 // clear cart
-routerCart.delete('',authenticateToken, async (req:Request,res:Response)=>{
+routerCart.delete('/clean',authenticateToken, async (req:Request,res:Response)=>{
 
 try {
 
@@ -30,7 +30,7 @@ try {
   }
   const token = authHeader && authHeader.split(" ")[1];
 
-  logger.info('tentativo di svuotare la tabella cart ricevuto')
+  logger.info('tentativo di svuotare la tabella cart ricevuto');
   
   const db = await getDb();
  
@@ -39,36 +39,19 @@ try {
 
   if (!verifyUser) {
     logger.warn('Utente non autenticato', { token });
-    return res.status(401).json({ message: 'Utente non autenticato' });
-  }
+    return res.status(401).json(responses.notHeader);
+  }else{
 
-  const userId = verifyUser.userId;
-
- 
-  const userData = await db.get('SELECT is_admin FROM users WHERE id = ?', [userId]);
-
-  if (!userData) {
-    logger.warn('Utente non trovato nella tabella users', { userId });
-    return res.status(404).json(responses.notUserExists);
-  }
-
-  const isAdmin = userData.is_admin;
-
-  if(isAdmin === 1){
-    
   const result = await db.run('DELETE FROM cart');
 
   if(result.changes && result.changes > 0){
     logger.info('tabella cart svuotata con successo');
-    return res.status(204).json({'message':'tabella cart svuotata con successo'});
+    return res.status(200).json({'message':'tabella cart svuotata con successo'});
   }else{
     logger.error('tabella cart non svuotata ');
     return res.status(500).json({'message':'tabella cart non  svuotata '});
   } 
-   }else {
-    logger.warn('Utente non autorizzato', { userId });
-    return res.status(403).json({ message: 'Non sei un admin, permesso negato' });
-  }
+   };
 
 } catch (err) {
 
@@ -78,8 +61,73 @@ try {
   }else{
     logger.error('errore sconosciuto',err);
     return res.status(500).json({'message':'errore sconosciuto','errore':err})
-  }
+  };
 
 }
 
+});
+
+
+
+// add product on cart
+routerCart.post('', authenticateToken, async (req:Request,res:Response)=>{
+
+  try {
+
+    const authHeader = req.headers["authorization"];
+
+    if (!authHeader) {
+      logger.warn('Nessun header di autorizzazione presente');
+      return res.status(401).json({ message: 'Autorizzazione mancante' });
+    }
+
+    const token = authHeader && authHeader.split(" ")[1];
+
+    const { userId, productId , quantity } = req.body
+
+    if(!userId || !productId || ! quantity){
+      logger.warn('parametri mancanti');
+      return res.status(400).json({
+        'message':'parametri mancanti'
+      });
+    };
+
+    logger.info('tentativo di aggiungere un prodotto al carrello ricevuto');
+    
+    const db = await getDb();
+  
+    
+    const verifyUser = await db.get('SELECT userId FROM auth WHERE token = ?', [token]);
+
+    if (!verifyUser) {
+      logger.warn('Utente non autenticato', { token });
+      return res.status(401).json(responses.notHeader);
+    }else{
+
+      const result = await db.run('INSERT INTO cart (userId, productId, quantity) VALUES (?, ?, ?)',[userId,productId,quantity]);
+      console.log(result); 
+      if(result.changes && result.changes > 0){
+        logger.info('prodotto aggiunto al carrelo',productId,quantity);
+        res.status(201).json({
+          'message':'prodotto aggiunto al carrelo',
+          'prodotto':productId,quantity
+        });
+      }else{
+        logger.info('prodotto non aggiunto al carrelo',productId,quantity);
+        res.status(500).json({
+          'message':'prodotto non aggiunto al carrelo',
+          });
+      }
+    }
+  } catch (err) {
+    if(err instanceof Error){
+      logger.error('errore standard di js',err.message);
+      return res.status(500).json({'message':'errore standar di js','errore':err.message})
+    }else{
+      logger.error('errore sconosciuto',err);
+      return res.status(500).json({'message':'errore sconosciuto','errore':err})
+    };
+  };
+
 })
+
