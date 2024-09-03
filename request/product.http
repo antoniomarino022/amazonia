@@ -1,0 +1,41 @@
+### clean product
+DELETE http://localhost:3000/product/clean
+Content-Type: application/json
+Authorization: Bearer
+
+
+
+### add product
+POST http://localhost:3000/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTcyNTM3NzUwOSwiZXhwIjoxNzI1Mzc5MzA5fQ.-Ei3cTI-ilvG84RoC_vpJnKq44iXzrf7jDMckuo54ig
+
+{
+    "nameProduct":"porno a microonde",
+    "price":10,
+    "img":"immagine",
+    "category":"elettrodomestici"
+}
+
+
+
+
+### update product
+PUT http://localhost:3000/product/update/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTcyNTM3NzUwOSwiZXhwIjoxNzI1Mzc5MzA5fQ.-Ei3cTI-ilvG84RoC_vpJnKq44iXzrf7jDMckuo54ig
+
+
+{
+    "nameProduct":"forno a microonde",
+    "price":105,
+    "img":"immaginee",
+    "category":"elettrodomestici"
+}
+
+
+### delete product
+DELETE  http://localhost:3000/product/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTcyNTA0NTMxOCwiZXhwIjoxNzI1MDQ3MTE4fQ.VHtZRC-cExMEO0T4HH4k3GjFEiwkNdvG6i0y21xWirk
+

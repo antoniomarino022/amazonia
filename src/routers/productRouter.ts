@@ -29,7 +29,7 @@ async function getDb() {
 
 // clear product
 
-routerProduct.delete('',authenticateToken, async (req:Request,res:Response)=>{
+routerProduct.delete('/cart',authenticateToken, async (req:Request,res:Response)=>{
 
   try {
   
@@ -93,13 +93,6 @@ routerProduct.delete('',authenticateToken, async (req:Request,res:Response)=>{
   }
   
   })
-
-
-
-
-
-
-
 
 
 

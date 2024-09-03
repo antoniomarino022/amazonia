@@ -1,0 +1,19 @@
+### clean cart
+DELETE http://localhost:3000/cart/clean
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTcyNTM3NzYxOSwiZXhwIjoxNzI1Mzc5NDE5fQ.RKy_kILaBmQyKoq8xwsaFlufevzXaOiYjPyzpzacIN0
+
+
+
+
+### add product on cart
+POST http://localhost:3000/cart
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTcyNTM3NzYxOSwiZXhwIjoxNzI1Mzc5NDE5fQ.RKy_kILaBmQyKoq8xwsaFlufevzXaOiYjPyzpzacIN0
+
+{
+    "userId":16,
+    "productId":16,
+    "quantity":5
+}
+
