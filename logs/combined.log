@@ -165,3 +165,83 @@
 {"level":"info","message":"prodotto aggiunto al carrelo","service":"user-service","timestamp":"2024-09-03 17:58:11"}
 {"level":"info","message":"tentativo di svuotare la tabella cart ricevuto","service":"user-service","timestamp":"2024-09-03 17:58:14"}
 {"level":"info","message":"tabella cart svuotata con successo","service":"user-service","timestamp":"2024-09-03 17:58:14"}
+{"level":"info","message":"tentativo di svuotare la tabella auth ricevuto","service":"user-service","timestamp":"2024-09-05 19:51:54"}
+{"level":"info","message":"Tentativo di cancella la tabella users ricevuto","service":"user-service","timestamp":"2024-09-05 19:51:59"}
+{"level":"info","message":"tabella svuotata","service":"user-service","timestamp":"2024-09-05 19:51:59"}
+{"email":"freebossetti@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-09-05 19:52:07","username":"antU6jfk"}
+{"email":"freebossetti@gmail.com","isAdmin":"false","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-09-05 19:52:07","username":"antU6jfk"}
+{"0":"f","1":"r","10":"t","11":"i","12":"@","13":"g","14":"m","15":"a","16":"i","17":"l","18":".","19":"c","2":"e","20":"o","21":"m","3":"e","4":"b","5":"o","6":"s","7":"s","8":"e","9":"t","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-05 19:52:09"}
+{"level":"info","message":"login effettuato freebossetti@gmail.com ","service":"user-service","timestamp":"2024-09-05 19:52:09"}
+{"email":"gabrolr70@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-09-05 19:52:21","username":"antU6jfkhhhh"}
+{"email":"gabrolr70@gmail.com","isAdmin":"true","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-09-05 19:52:21","username":"antU6jfkhhhh"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-05 19:52:45"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-05 19:52:45"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 19:53:12"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":4,"service":"user-service","timestamp":"2024-09-05 19:53:12"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 19:53:19"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":5,"service":"user-service","timestamp":"2024-09-05 19:53:19"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 19:53:20"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":6,"service":"user-service","timestamp":"2024-09-05 19:53:20"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 19:53:21"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":7,"service":"user-service","timestamp":"2024-09-05 19:53:21"}
+{"level":"info","message":"tentativo di aggiungere un prodotto al carrello ricevuto","service":"user-service","timestamp":"2024-09-05 19:55:04"}
+{"level":"info","message":"prodotto aggiunto al carrelo","service":"user-service","timestamp":"2024-09-05 19:55:04"}
+{"level":"info","message":"tentativo di aggiungere un prodotto al carrello ricevuto","service":"user-service","timestamp":"2024-09-05 19:55:11"}
+{"level":"info","message":"prodotto aggiunto al carrelo","service":"user-service","timestamp":"2024-09-05 19:55:11"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 19:58:09"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 19:58:09"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 19:58:22"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 19:58:22"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 19:58:24"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 19:58:24"}
+{"level":"info","message":"tentativo di aggiungere un prodotto al carrello ricevuto","service":"user-service","timestamp":"2024-09-05 20:09:42"}
+{"level":"info","message":"prodotto aggiunto al carrelo","service":"user-service","timestamp":"2024-09-05 20:09:42"}
+{"level":"info","message":"tentativo di aggiungere un prodotto al carrello ricevuto","service":"user-service","timestamp":"2024-09-05 20:09:46"}
+{"level":"info","message":"prodotto aggiunto al carrelo","service":"user-service","timestamp":"2024-09-05 20:09:46"}
+{"email":"freebossetti@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-09-05 20:18:35","username":"antU6jfk"}
+{"email":"freebossetti@gmail.com","isAdmin":"false","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-09-05 20:18:35","username":"antU6jfk"}
+{"email":"gabrolr70@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-09-05 20:18:41","username":"antU6jfkhhhh"}
+{"email":"gabrolr70@gmail.com","isAdmin":"true","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-09-05 20:18:41","username":"antU6jfkhhhh"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-05 20:18:46"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-05 20:18:46"}
+{"level":"info","message":"Tentativo di logout ricevuto","service":"user-service","timestamp":"2024-09-05 20:19:23","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI1NTYwMzI2LCJleHAiOjE3MjU1NjIxMjZ9.zRZtpNTSBJGX1tyeCBp2Ei1INtVS2k4y8CzB2yYabgA"}
+{"level":"info","message":"Logout effettuato con successo","service":"user-service","timestamp":"2024-09-05 20:19:23","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI1NTYwMzI2LCJleHAiOjE3MjU1NjIxMjZ9.zRZtpNTSBJGX1tyeCBp2Ei1INtVS2k4y8CzB2yYabgA"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-05 20:20:38"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-05 20:20:38"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 20:20:47"}
+{"level":"warn","message":"Utente non autenticato","service":"user-service","timestamp":"2024-09-05 20:20:47","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImlhdCI6MTcyNTU1ODc2NSwiZXhwIjoxNzI1NTYwNTY1fQ.zkJJD_c_0KEJ9Xz1Mavp2h0hCu4F0hVg34m5yk8sbRo"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 20:21:03"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":1,"service":"user-service","timestamp":"2024-09-05 20:21:03"}
+{"level":"info","message":"tentativo di aggiornare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 20:21:30"}
+{"0":"1","level":"info","message":"Prodotto  aggiornato con successo","service":"user-service","timestamp":"2024-09-05 20:21:30"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 20:21:34"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 20:21:38"}
+{"0":"1","level":"info","message":"Prodotto eliminato con successo","service":"user-service","timestamp":"2024-09-05 20:21:38"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-05 20:21:43"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":2,"service":"user-service","timestamp":"2024-09-05 20:21:44"}
+{"level":"info","message":"tentativo di aggiungere un prodotto al carrello ricevuto","service":"user-service","timestamp":"2024-09-05 20:21:55"}
+{"level":"warn","message":"Utente non autenticato","service":"user-service","timestamp":"2024-09-05 20:21:55","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImlhdCI6MTcyNTU1ODc2NSwiZXhwIjoxNzI1NTYwNTY1fQ.zkJJD_c_0KEJ9Xz1Mavp2h0hCu4F0hVg34m5yk8sbRo"}
+{"level":"info","message":"tentativo di aggiungere un prodotto al carrello ricevuto","service":"user-service","timestamp":"2024-09-05 20:22:43"}
+{"level":"info","message":"prodotto aggiunto al carrelo","service":"user-service","timestamp":"2024-09-05 20:22:43"}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-05 20:25:14"}
+{"level":"warn","message":"Utente non trovato","service":"user-service","timestamp":"2024-09-05 20:25:14","userId":18}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-05 20:25:50"}
+{"level":"info","message":"Prodotto aggiunto al carrello con successo","service":"user-service","timestamp":"2024-09-05 20:25:50"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 20:28:52"}
+{"level":"warn","message":"prodotto non trovato","service":"user-service","timestamp":"2024-09-05 20:28:52"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 20:29:00"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 20:29:00"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-05 21:18:59"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-05 21:18:59"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 21:19:14"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 21:19:14"}
+{"level":"info","message":"Tentativo di eliminare un prodotto dal carrello ricevuto","service":"user-service","timestamp":"2024-09-05 21:22:19"}
+{"level":"info","message":"Prodotto rimosso con successo dal carrello","service":"user-service","timestamp":"2024-09-05 21:22:19"}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-05 21:23:25"}
+{"level":"info","message":"Prodotto aggiunto al carrello con successo","service":"user-service","timestamp":"2024-09-05 21:23:25"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 21:23:28"}
+{"id":"2","level":"warn","message":"Prodotto non trovato nel carrello","productId":2,"service":"user-service","timestamp":"2024-09-05 21:23:28"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-05 21:23:33"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 21:23:33"}
+{"level":"info","message":"Tentativo di eliminare un prodotto dal carrello ricevuto","service":"user-service","timestamp":"2024-09-05 21:23:39"}
+{"level":"info","message":"Prodotto rimosso con successo dal carrello","service":"user-service","timestamp":"2024-09-05 21:23:39"}

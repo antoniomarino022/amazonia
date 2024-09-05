@@ -70,54 +70,104 @@ try {
 
 
 // add product on cart
-routerCart.post('', authenticateToken, async (req:Request,res:Response)=>{
-
+routerCart.post('/', authenticateToken, async (req: Request, res: Response) => {
   try {
+    const { userId, productId, quantity } = req.body;
 
-    const authHeader = req.headers["authorization"];
-
-    if (!authHeader) {
-      logger.warn('Nessun header di autorizzazione presente');
-      return res.status(401).json({ message: 'Autorizzazione mancante' });
+    
+    if (!userId || !productId || !quantity) {
+      logger.warn('Parametri mancanti', req.body);
+      return res.status(400).json({ message: 'Parametri mancanti', body: req.body });
     }
 
-    const token = authHeader && authHeader.split(" ")[1];
+    logger.info('Tentativo di aggiungere prodotto al carrello');
 
-    const { userId, productId , quantity } = req.body
+    const db = await getDb();
 
-    if(!userId || !productId || ! quantity){
-      logger.warn('parametri mancanti');
-      return res.status(400).json({
-        'message':'parametri mancanti'
+   
+    const foundUser = await db.get('SELECT id FROM users WHERE id = ?', [userId]);
+    if (!foundUser) {
+      logger.warn('Utente non trovato', { userId });
+      return res.status(404).json({ message: 'Utente non trovato' });
+    }
+
+    const foundProduct = await db.get('SELECT id FROM products WHERE id = ?', [productId]);
+    if (!foundProduct) {
+      logger.warn('Prodotto non trovato', { productId });
+      return res.status(404).json({ message: 'Prodotto non trovato' });
+    }
+
+   
+    const result = await db.run('INSERT INTO cart (userId, productId, quantity) VALUES (?, ?, ?)', [userId, productId, quantity]);
+
+    if (result.changes && result.changes> 0) {
+      logger.info('Prodotto aggiunto al carrello con successo');
+      return res.status(201).json({ message: 'Prodotto aggiunto al carrello con successo' });
+    } else {
+      logger.error('Impossibile aggiungere prodotto al carrello');
+      return res.status(500).json({ message: 'Impossibile aggiungere prodotto al carrello' });
+    }
+
+  } catch (err) {
+    if (err instanceof Error) {
+      logger.error('Errore standard di JavaScript', err.message);
+      return res.status(500).json({ message: 'Errore standard di JavaScript', errore: err.message });
+    } else {
+      logger.error('Errore sconosciuto', err);
+      return res.status(500).json({ message: 'Errore sconosciuto', errore: err });
+    }
+  }
+});
+
+
+
+
+
+// update cart
+
+routerCart.put('/update/:id',authenticateToken,async(req:Request,res:Response)=>{
+  try {
+    
+    const { productId , quantity} = req.body
+    const { id } = req.params;
+
+    if(!productId || !quantity){
+      logger.warn('parametri mancanti',req.body);
+      res.status(400).json({
+        message:'parametri mancanti',
+        body:req.body
       });
     };
 
-    logger.info('tentativo di aggiungere un prodotto al carrello ricevuto');
-    
+    if(!id){
+      logger.warn('id mancannte o non valido',req.params);
+      res.status(400).json(responses.idNotValid)
+    }
+
+    logger.info('tentativo di modificare il carello ricevuto');
+
     const db = await getDb();
-  
-    
-    const verifyUser = await db.get('SELECT userId FROM auth WHERE token = ?', [token]);
+    const foundProduct = await db.get('SELECT id FROM products WHERE id = ?', [productId]);
 
-    if (!verifyUser) {
-      logger.warn('Utente non autenticato', { token });
-      return res.status(401).json(responses.notHeader);
+    if(!foundProduct){
+      logger.warn('prodotto non trovato');
+      return res.status(404).json(responses.notFoundProduct);
+    };
+
+      
+    const foundCartItem = await db.get('SELECT * FROM cart WHERE id = ? AND productId = ?', [id, productId]);
+    if (!foundCartItem) {
+      logger.warn('Prodotto non trovato nel carrello', { id, productId });
+      return res.status(404).json({ message: 'Prodotto non trovato nel carrello' });
+    }
+
+    const result = await db.run('UPDATE cart SET productId = ?, quantity = ? WHERE id = ?',[productId,quantity,id]);
+    if(result.changes && result.changes > 0){
+      logger.info('prodotto modificato con successo');
+      return res.status(200).json({'message':'prodotto modificato con successo'});
     }else{
-
-      const result = await db.run('INSERT INTO cart (userId, productId, quantity) VALUES (?, ?, ?)',[userId,productId,quantity]);
-      console.log(result); 
-      if(result.changes && result.changes > 0){
-        logger.info('prodotto aggiunto al carrelo',productId,quantity);
-        res.status(201).json({
-          'message':'prodotto aggiunto al carrelo',
-          'prodotto':productId,quantity
-        });
-      }else{
-        logger.info('prodotto non aggiunto al carrelo',productId,quantity);
-        res.status(500).json({
-          'message':'prodotto non aggiunto al carrelo',
-          });
-      }
+      logger.info('prodotto non modificato');
+      return res.status(500).json({'message':'prodotto non modificato'});
     }
   } catch (err) {
     if(err instanceof Error){
@@ -128,6 +178,63 @@ routerCart.post('', authenticateToken, async (req:Request,res:Response)=>{
       return res.status(500).json({'message':'errore sconosciuto','errore':err})
     };
   };
+  });
 
-})
 
+
+
+  // delete product on cart
+  routerCart.delete('/delete/:id', authenticateToken, async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { productId } = req.body;
+  
+      // Verifica se l'ID e il productId sono presenti
+      if (!id) {
+        logger.warn('ID del carrello mancante o non valido', id);
+        return res.status(400).json({ message: 'ID carrello mancante o non valido' });
+      }
+  
+      if (!productId) {
+        logger.warn('ID del prodotto mancante', productId);
+        return res.status(400).json({ message: 'ID prodotto mancante' });
+      }
+  
+      logger.info('Tentativo di eliminare un prodotto dal carrello ricevuto');
+  
+      const db = await getDb();
+  
+   
+      const foundProduct = await db.get('SELECT id FROM products WHERE id = ?', [productId]);
+      if (!foundProduct) {
+        logger.warn('Prodotto non trovato nel database', { productId });
+        return res.status(404).json({ message: 'Prodotto non trovato nel database' });
+      }
+  
+      
+      const foundCartItem = await db.get('SELECT * FROM cart WHERE id = ? AND productId = ?', [id, productId]);
+      if (!foundCartItem) {
+        logger.warn('Prodotto non trovato nel carrello', { id, productId });
+        return res.status(404).json({ message: 'Prodotto non trovato nel carrello' });
+      }
+  
+   
+      const result = await db.run('DELETE FROM cart WHERE id = ? AND productId = ?', [id, productId]);
+      if (result.changes && result.changes > 0) {
+        logger.info('Prodotto rimosso con successo dal carrello');
+        return res.status(200).json({ message: 'Prodotto rimosso con successo dal carrello' });
+      } else {
+        logger.error('Errore durante la rimozione del prodotto dal carrello');
+        return res.status(500).json({ message: 'Errore durante la rimozione del prodotto dal carrello' });
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        logger.error('Errore standard di JavaScript', err.message);
+        return res.status(500).json({ message: 'Errore standard di JavaScript', errore: err.message });
+      } else {
+        logger.error('Errore sconosciuto', err);
+        return res.status(500).json({ message: 'Errore sconosciuto', errore: err });
+      }
+    }
+  });
+  

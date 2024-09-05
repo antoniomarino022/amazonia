@@ -38,11 +38,9 @@ CREATE TABLE IF NOT EXISTS auth (
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS products(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
-    token TEXT NOT NULL,
     nameProduct TEXT NOT NULL,
     price REAL NOT NULL,
     img TEXT NOT NULL,
@@ -50,24 +48,21 @@ CREATE TABLE IF NOT EXISTS products(
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS orders(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
-    token TEXT NOT NULL,
     status TEXT NOT NULL,
-    date TEXT NOT NULL,
+    date DATETIME NOT NULL,
     FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS orders_product(
-    ordineId INTEGER NOT NULL,
-    prodottoId INTEGER NOT NULL,
+    orderId INTEGER NOT NULL,
+    productId INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
-    FOREIGN KEY(ordineId) REFERENCES ordini(id) ON DELETE CASCADE,
-    FOREIGN KEY(prodottoId) REFERENCES prodotti(id) ON DELETE CASCADE,
-    PRIMARY KEY(ordineId, prodottoId)
+    FOREIGN KEY(orderId) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY(productId) REFERENCES products(id) ON DELETE CASCADE,
+    PRIMARY KEY(orderId, productId)
 );
 
 CREATE TABLE IF NOT EXISTS cart(
