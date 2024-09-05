@@ -353,4 +353,4 @@ routerProduct.delete('/:id', authenticateToken, async (req: Request, res: Respon
     }
     
   }
-})
+});

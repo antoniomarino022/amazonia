@@ -155,7 +155,7 @@ routerAuth.delete('/logout', authenticateToken, async (req: Request, res: Respon
 
     if (result.changes && result.changes  > 0) {
       logger.info('Logout effettuato con successo', { token });
-      return res.status(204).json({
+      return res.status(200).json({
         message: 'Logout effettuato con successo'
       });
     } else {
