@@ -14,7 +14,9 @@ async function getDb() {
       driver: sqlite3.Database
     });
   };
-// In che senso modificare i prodotti? una volta piazzato un ordine non puoi di logica modificarlo. (Amazon permette di farlo, ma c'è una logica piu' complessa, che i prodotti non siano spediti)
+
+// In che senso modificare i prodotti? una volta piazzato un ordine non puoi di logica modificarlo. (Amazon permette di farlo, ma c'è una logica piu' complessa, che i prodotti non siano spediti);
+// La tabella orders_product è progettata per gestire una relazione molti-a-molti tra ordini e prodotti. Un singolo ordine può includere molti prodotti, e ciascun prodotto può essere presente in più ordini.
   routerOrderProduct.post("/", async () => {
 
   });

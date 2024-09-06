@@ -190,7 +190,7 @@ routerCart.put('/:id',authenticateToken,async(req:Request,res:Response)=>{
       const { id } = req.params;
       const { productId } = req.body;
   
-      // Verifica se l'ID e il productId sono presenti
+     
       if (!id) {
         logger.warn('ID del carrello mancante o non valido', id);
         return res.status(400).json({ message: 'ID carrello mancante o non valido' });
