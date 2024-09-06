@@ -14,3 +14,15 @@ async function getDb() {
       driver: sqlite3.Database
     });
   };
+// In che senso modificare i prodotti? una volta piazzato un ordine non puoi di logica modificarlo. (Amazon permette di farlo, ma c'è una logica piu' complessa, che i prodotti non siano spediti)
+  routerOrderProduct.post("/", async () => {
+
+  });
+
+  routerOrderProduct.put("/", async () => {
+
+  });
+
+  routerOrderProduct.delete("/", async () => {
+
+  });
