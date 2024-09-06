@@ -70,12 +70,13 @@ try {
 
 
 // add product on cart
-routerCart.post('/', authenticateToken, async (req: Request, res: Response) => {
+routerCart.post('/:id', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const { userId, productId, quantity } = req.body;
+    const { productId, quantity } = req.body;
+    const  userId = req.params.id;
 
     
-    if (!userId || !productId || !quantity) {
+    if (!productId || !quantity) {
       logger.warn('Parametri mancanti', req.body);
       return res.status(400).json({ message: 'Parametri mancanti', body: req.body });
     }
@@ -125,10 +126,10 @@ routerCart.post('/', authenticateToken, async (req: Request, res: Response) => {
 
 // update cart
 
-routerCart.put('/update/:id',authenticateToken,async(req:Request,res:Response)=>{
+routerCart.put('/:id',authenticateToken,async(req:Request,res:Response)=>{
   try {
     
-    const { productId , quantity} = req.body
+    const { productId , quantity} = req.body;
     const { id } = req.params;
 
     if(!productId || !quantity){
@@ -184,7 +185,7 @@ routerCart.put('/update/:id',authenticateToken,async(req:Request,res:Response)=>
 
 
   // delete product on cart
-  routerCart.delete('/delete/:id', authenticateToken, async (req: Request, res: Response) => {
+  routerCart.delete('/:id', authenticateToken, async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { productId } = req.body;
