@@ -70,13 +70,11 @@ try {
 
 
 // add product on cart
-routerCart.post('/:id', authenticateToken, async (req: Request, res: Response) => {
+routerCart.post('', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const { productId, quantity } = req.body;
-    const  userId = req.params.id;
-
+    const { productId, quantity, userId } = req.body;
     
-    if (!productId || !quantity) {
+    if (!productId || !userId || !quantity) {
       logger.warn('Parametri mancanti', req.body);
       return res.status(400).json({ message: 'Parametri mancanti', body: req.body });
     }

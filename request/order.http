@@ -1,42 +1,38 @@
-### clean cart
-DELETE http://localhost:3000/cart/clean
-Content-Type: application/json 
+### clear table order
+DELETE http://localhost:3000/order
+Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
 
 
 
 
-### add product on cart
-POST http://localhost:3000/cart
+### add order
+POST http://localhost:3000/order
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
 
 {
     "userId":3,
-    "productId":5,
-    "quantity":5
+    "status":"in consegna",
+    "date":"29/05/2024"
 }
 
 
 
-### update product on cart
-PUT http://localhost:3000/cart/4
+
+### update order
+PUT http://localhost:3000/order/2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
 
 {
-    "productId":4,
-    "quantity":23
+    "status":"annullato"
 }
 
 
 
 
-### delete product on cart
-DELETE http://localhost:3000/cart/4
+### delete order
+DELETE http://localhost:3000/order/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
-
-{
-    "productId":4
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEyMTMxLCJleHAiOjE3MjU3MTM5MzF9.42h_-wYiRzHBMrSm_yzxpwqGBVaCXCsE0Fpwx6CY878

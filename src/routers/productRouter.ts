@@ -29,7 +29,7 @@ async function getDb() {
 
 // clear product
 
-routerProduct.delete('/cart',authenticateToken, async (req:Request,res:Response)=>{
+routerProduct.delete('/clean',authenticateToken, async (req:Request,res:Response)=>{
 
   try {
   
@@ -66,11 +66,11 @@ routerProduct.delete('/cart',authenticateToken, async (req:Request,res:Response)
   
     if(isAdmin === 1){
       
-    const result = await db.run('DELETE FROM product');
+    const result = await db.run('DELETE FROM products');
   
     if(result.changes && result.changes > 0){
       logger.info('tabella product svuotata con successo');
-      return res.status(204).json({'message':'tabella product svuotata con successo'});
+      return res.status(200).json({'message':'tabella product svuotata con successo'});
     }else{
       logger.error('tabella product non svuotata ');
       return res.status(500).json({'message':'tabella product non  svuotata '});

@@ -245,3 +245,67 @@
 {"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-05 21:23:33"}
 {"level":"info","message":"Tentativo di eliminare un prodotto dal carrello ricevuto","service":"user-service","timestamp":"2024-09-05 21:23:39"}
 {"level":"info","message":"Prodotto rimosso con successo dal carrello","service":"user-service","timestamp":"2024-09-05 21:23:39"}
+{"level":"info","message":"Tentativo di cancella la tabella users ricevuto","service":"user-service","timestamp":"2024-09-07 13:56:03"}
+{"level":"info","message":"tabella svuotata","service":"user-service","timestamp":"2024-09-07 13:56:03"}
+{"level":"info","message":"tentativo di svuotare la tabella auth ricevuto","service":"user-service","timestamp":"2024-09-07 13:56:18"}
+{"level":"warn","message":"Email o password non corretti gabrolr70@gmail.com","service":"user-service","timestamp":"2024-09-07 13:56:23"}
+{"email":"gabrolr70@gmail.com","level":"info","message":"Tentativo di registrazione utente ricevuto","service":"user-service","timestamp":"2024-09-07 13:56:51","username":"antU6jfkhhhh"}
+{"email":"gabrolr70@gmail.com","isAdmin":"true","level":"info","message":"Nuovo utente registrato con successo","service":"user-service","timestamp":"2024-09-07 13:56:51","username":"antU6jfkhhhh"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-07 13:56:56"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-07 13:56:56"}
+{"level":"info","message":"tentativo di svuotare la tabella cart ricevuto","service":"user-service","timestamp":"2024-09-07 13:57:53"}
+{"level":"info","message":"tabella cart svuotata con successo","service":"user-service","timestamp":"2024-09-07 13:57:53"}
+{"level":"info","message":"tentativo di svuotare la tabella cart ricevuto","service":"user-service","timestamp":"2024-09-07 13:58:50"}
+{"level":"error","message":"tabella cart non svuotata ","service":"user-service","timestamp":"2024-09-07 13:58:50"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 13:59:14"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 13:59:24"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 13:59:25"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 13:59:50"}
+{"level":"info","message":"tentativo di svuotare la tabella cart ricevuto","service":"user-service","timestamp":"2024-09-07 14:00:57"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"o","16":" ","17":"s","18":"u","19":"c","2":"L","20":"h","21":" ","22":"t","23":"a","24":"b","25":"l","26":"e","27":":","28":" ","29":"p","3":"I","30":"r","31":"o","32":"d","33":"u","34":"c","35":"t","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"errore standard di js","service":"user-service","timestamp":"2024-09-07 14:00:57"}
+{"level":"info","message":"tentativo di svuotare la tabella cart ricevuto","service":"user-service","timestamp":"2024-09-07 14:01:45"}
+{"level":"info","message":"tabella product svuotata con successo","service":"user-service","timestamp":"2024-09-07 14:01:45"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 14:02:34"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":3,"service":"user-service","timestamp":"2024-09-07 14:02:34"}
+{"level":"info","message":"tentativo di aggiornare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 14:02:41"}
+{"0":"3","level":"info","message":"Prodotto  aggiornato con successo","service":"user-service","timestamp":"2024-09-07 14:02:41"}
+{"level":"info","message":"tentativo di eliminare un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 14:02:47"}
+{"0":"3","level":"info","message":"Prodotto eliminato con successo","service":"user-service","timestamp":"2024-09-07 14:02:47"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 14:02:50"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":4,"service":"user-service","timestamp":"2024-09-07 14:02:50"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 14:02:53"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":5,"service":"user-service","timestamp":"2024-09-07 14:02:53"}
+{"level":"info","message":"Tentativo di aggiungere un prodotto ricevuto","service":"user-service","timestamp":"2024-09-07 14:02:53"}
+{"level":"info","message":"Prodotto aggiunto con successo","productId":6,"service":"user-service","timestamp":"2024-09-07 14:02:53"}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-07 14:10:02"}
+{"level":"info","message":"Prodotto aggiunto al carrello con successo","service":"user-service","timestamp":"2024-09-07 14:10:02"}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-07 14:10:17"}
+{"level":"warn","message":"Utente non trovato","service":"user-service","timestamp":"2024-09-07 14:10:17","userId":7}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-07 14:10:22"}
+{"level":"warn","message":"Prodotto non trovato","productId":46,"service":"user-service","timestamp":"2024-09-07 14:10:22"}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-07 14:10:27"}
+{"level":"info","message":"Prodotto aggiunto al carrello con successo","service":"user-service","timestamp":"2024-09-07 14:10:27"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-07 14:12:17"}
+{"id":"4","level":"warn","message":"Prodotto non trovato nel carrello","productId":5,"service":"user-service","timestamp":"2024-09-07 14:12:17"}
+{"level":"info","message":"tentativo di modificare il carello ricevuto","service":"user-service","timestamp":"2024-09-07 14:12:36"}
+{"level":"info","message":"prodotto modificato con successo","service":"user-service","timestamp":"2024-09-07 14:12:36"}
+{"level":"info","message":"Tentativo di eliminare un prodotto dal carrello ricevuto","service":"user-service","timestamp":"2024-09-07 14:12:48"}
+{"level":"warn","message":"Prodotto non trovato nel database","productId":2,"service":"user-service","timestamp":"2024-09-07 14:12:48"}
+{"level":"info","message":"Tentativo di eliminare un prodotto dal carrello ricevuto","service":"user-service","timestamp":"2024-09-07 14:12:52"}
+{"level":"info","message":"Prodotto rimosso con successo dal carrello","service":"user-service","timestamp":"2024-09-07 14:12:52"}
+{"level":"info","message":"Tentativo di aggiungere prodotto al carrello","service":"user-service","timestamp":"2024-09-07 14:12:58"}
+{"level":"info","message":"Prodotto aggiunto al carrello con successo","service":"user-service","timestamp":"2024-09-07 14:12:58"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"o","16":" ","17":"s","18":"u","19":"c","2":"L","20":"h","21":" ","22":"t","23":"a","24":"b","25":"l","26":"e","27":":","28":" ","29":"u","3":"I","30":"s","31":"e","32":"r","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 14:15:25"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"o","16":" ","17":"s","18":"u","19":"c","2":"L","20":"h","21":" ","22":"t","23":"a","24":"b","25":"l","26":"e","27":":","28":" ","29":"u","3":"I","30":"s","31":"e","32":"r","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 14:17:30"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"o","16":" ","17":"s","18":"u","19":"c","2":"L","20":"h","21":" ","22":"t","23":"a","24":"b","25":"l","26":"e","27":":","28":" ","29":"u","3":"I","30":"s","31":"e","32":"r","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 14:18:40"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"e","16":"a","17":"r","18":" ","19":"\"","2":"L","20":"o","21":"r","22":"d","23":"e","24":"r","25":"\"","26":":","27":" ","28":"s","29":"y","3":"I","30":"n","31":"t","32":"a","33":"x","34":" ","35":"e","36":"r","37":"r","38":"o","39":"r","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 14:19:42"}
+{"level":"info","message":"ordine aggiunto con successo","service":"user-service","timestamp":"2024-09-07 14:22:43"}
+{"level":"info","message":"ordine aggiunto con successo","service":"user-service","timestamp":"2024-09-07 14:22:43"}
+{"level":"warn","message":"utente non trovato","service":"user-service","timestamp":"2024-09-07 14:22:50"}
+{"level":"info","message":"tentativo di aggiornare l ordine ricevuto ","service":"user-service","timestamp":"2024-09-07 14:23:44"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"e","16":"a","17":"r","18":" ","19":"\"","2":"L","20":"o","21":"r","22":"d","23":"e","24":"r","25":"\"","26":":","27":" ","28":"s","29":"y","3":"I","30":"n","31":"t","32":"a","33":"x","34":" ","35":"e","36":"r","37":"r","38":"o","39":"r","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 14:23:44"}
+{"level":"info","message":"tentativo di aggiornare l ordine ricevuto ","service":"user-service","timestamp":"2024-09-07 14:24:13"}
+{"level":"info","message":"ordine aggiornato con successo","service":"user-service","timestamp":"2024-09-07 14:24:13"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-07 14:28:51"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-07 14:28:51"}
+{"level":"info","message":"ordine cancellato con successo","service":"user-service","timestamp":"2024-09-07 14:29:09"}

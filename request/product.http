@@ -1,14 +1,15 @@
 ### clean product
 DELETE http://localhost:3000/product/clean
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
 
 
 
 ### add product
 POST http://localhost:3000/product
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI1NTYwNDM4LCJleHAiOjE3MjU1NjIyMzh9.s-HTBvLZZMiIDleRuloc7EOaMVhsR_jMNXJ3rUDYRLo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
+
 
 {
     "nameProduct":"forno a microonde",
@@ -21,9 +22,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 
 
 ### update product
-PUT http://localhost:3000/product/update/1
+PUT http://localhost:3000/product/update/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI1NTYwNDM4LCJleHAiOjE3MjU1NjIyMzh9.s-HTBvLZZMiIDleRuloc7EOaMVhsR_jMNXJ3rUDYRLo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
+
 
 {
     "nameProduct":"forno a microonde",
@@ -34,6 +36,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 
 
 ### delete product
-DELETE http://localhost:3000/product/1
+DELETE http://localhost:3000/product/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI1NTYwNDM4LCJleHAiOjE3MjU1NjIyMzh9.s-HTBvLZZMiIDleRuloc7EOaMVhsR_jMNXJ3rUDYRLo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
+

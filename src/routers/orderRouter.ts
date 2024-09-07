@@ -23,17 +23,17 @@ routerOrder.delete('/', authenticateToken, async (req: Request, res: Response) =
 
   try {
     
-    logger.info("tentativo di svuotare la tabella order ricevuto");
+    logger.info("tentativo di svuotare la tabella orders ricevuto");
 
     const db = await getDb();
-    const result = await db.run('DELETE FROM order');
+    const result = await db.run('DELETE FROM orders');
 
     if(result.changes && result.changes > 0){
-      logger.info("tabella order svuotata con successo");
-      res.status(200).json({ message: 'tabella order svuotata con successo' });
+      logger.info("tabella orders svuotata con successo");
+      res.status(200).json({ message: 'tabella orders svuotata con successo' });
     } else {
-      logger.info("tabella order non svuotata");
-      res.status(500).json({ message: 'tabella order non svuotata' });
+      logger.info("tabella orders non svuotata");
+      res.status(500).json({ message: 'tabella orders non svuotata' });
     };
   } catch (err) {
     if (err instanceof Error) {
@@ -62,14 +62,14 @@ routerOrder.post("/", authenticateToken, async (req: Request, res: Response) => 
     }
 
     const db = await getDb();
-    const userVerify = await db.get(`SELECT * FROM user WHERE id = ?`, [userId]);
+    const userVerify = await db.get(`SELECT * FROM users WHERE id = ?`, [userId]);
 
     if(!userVerify){
       logger.warn('utente non trovato');
       return res.status(400).json(responses.notUserExists);
     }
 
-    const result = await db.run(`INSERT INTO order (userId, status, date) VALUES (?, ?, ?)`, [userId, status, date]);
+    const result = await db.run(`INSERT INTO orders (userId, status, date) VALUES (?, ?, ?)`, [userId, status, date]);
     if(result && result.changes && result.changes > 0){
       logger.info('ordine aggiunto con successo');
       return res.status(200).json({ message: 'ordine aggiunto con successo' });
@@ -91,7 +91,7 @@ routerOrder.post("/", authenticateToken, async (req: Request, res: Response) => 
 
 
 // update order
-routerOrder.put('update/id', authenticateToken, async (req: Request, res: Response) => {
+routerOrder.put('/:id', authenticateToken, async (req: Request, res: Response) => {
 
   try {
     
@@ -107,13 +107,13 @@ routerOrder.put('update/id', authenticateToken, async (req: Request, res: Respon
     
     const db = await getDb();
 
-    const verifyOrder = await db.get(`SELECT * FROM order WHERE id = ?`, [id]);
+    const verifyOrder = await db.get(`SELECT * FROM orders WHERE id = ?`, [id]);
     if(!verifyOrder){
       logger.warn('ordine non trovato');
       return res.status(400).json({ message: 'ordine non trovato' });
     }
 
-    const result = await db.run(`UPDATE order SET status = ? WHERE id = ?`, [status, id]);
+    const result = await db.run(`UPDATE orders SET status = ? WHERE id = ?`, [status, id]);
 
     if(result && result.changes && result.changes > 0){
       logger.info('ordine aggiornato con successo');
@@ -139,7 +139,7 @@ routerOrder.put('update/id', authenticateToken, async (req: Request, res: Respon
 
 // delete order
 
-routerOrder.delete('delete/id', authenticateToken, async (req: Request, res: Response) => {
+routerOrder.delete('/:id', authenticateToken, async (req: Request, res: Response) => {
 
   try {
     
@@ -151,14 +151,14 @@ routerOrder.delete('delete/id', authenticateToken, async (req: Request, res: Res
     }
 
     const db = await getDb();
-    const verifyOrder = await db.get(`SELECT * FROM order WHERE id = ?`, [id]);
+    const verifyOrder = await db.get(`SELECT * FROM orders WHERE id = ?`, [id]);
 
     if(!verifyOrder){
       logger.warn('ordine non trovato');
       return res.status(400).json({ message: 'ordine non trovato' });
     };
 
-    const result = await db.run(`DELETE FROM order WHERE id = ?`, [id]);
+    const result = await db.run(`DELETE FROM orders WHERE id = ?`, [id]);
     if(result && result.changes && result.changes > 0){
       logger.info('ordine cancellato con successo');
       return res.status(200).json({ message: 'ordine cancellato con successo' });
