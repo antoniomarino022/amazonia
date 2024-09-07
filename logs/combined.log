@@ -309,3 +309,35 @@
 {"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-07 14:28:51"}
 {"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-07 14:28:51"}
 {"level":"info","message":"ordine cancellato con successo","service":"user-service","timestamp":"2024-09-07 14:29:09"}
+{"level":"info","message":"tentativo di svuotare la tabella auth ricevuto","service":"user-service","timestamp":"2024-09-07 14:31:12"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-07 14:57:07"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-07 14:57:07"}
+{"level":"info","message":"tentativo di svuotare la tabella auth ricevuto","service":"user-service","timestamp":"2024-09-07 14:57:32"}
+{"0":"g","1":"a","10":"g","11":"m","12":"a","13":"i","14":"l","15":".","16":"c","17":"o","18":"m","2":"b","3":"r","4":"o","5":"l","6":"r","7":"7","8":"0","9":"@","level":"info","message":"tentativo di login ricevuto","service":"user-service","timestamp":"2024-09-07 14:57:44"}
+{"level":"info","message":"login effettuato gabrolr70@gmail.com ","service":"user-service","timestamp":"2024-09-07 14:57:44"}
+{"level":"info","message":"tentativo di svuotare la tabella orders ricevuto","service":"user-service","timestamp":"2024-09-07 14:58:02"}
+{"level":"info","message":"tabella orders svuotata con successo","service":"user-service","timestamp":"2024-09-07 14:58:02"}
+{"level":"info","message":"ordine aggiunto con successo","service":"user-service","timestamp":"2024-09-07 14:58:14"}
+{"level":"info","message":"ordine aggiunto con successo","service":"user-service","timestamp":"2024-09-07 14:58:14"}
+{"level":"info","message":"ordine aggiunto con successo","service":"user-service","timestamp":"2024-09-07 14:58:16"}
+{"level":"warn","message":"parametri mancanti","service":"user-service","timestamp":"2024-09-07 14:58:51"}
+{"level":"warn","message":"parametri mancanti","service":"user-service","timestamp":"2024-09-07 15:00:14"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"n","15":"o","16":" ","17":"s","18":"u","19":"c","2":"L","20":"h","21":" ","22":"t","23":"a","24":"b","25":"l","26":"e","27":":","28":" ","29":"o","3":"I","30":"r","31":"d","32":"e","33":"r","34":"_","35":"p","36":"r","37":"o","38":"d","39":"u","4":"T","40":"c","41":"t","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 15:03:15"}
+{"level":"info","message":"ordine aggiunto","service":"user-service","timestamp":"2024-09-07 15:04:24"}
+{"level":"warn","message":"ordine non trovato","service":"user-service","timestamp":"2024-09-07 15:04:34"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:05:07"}
+{"level":"warn","message":"ordine non trovato","service":"user-service","timestamp":"2024-09-07 15:05:07"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:05:14"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"u","15":"n","16":"r","17":"e","18":"c","19":"o","2":"L","20":"g","21":"n","22":"i","23":"z","24":"e","25":"d","26":" ","27":"t","28":"o","29":"k","3":"I","30":"e","31":"n","32":":","33":" ","34":"\"","35":"]","36":"\"","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 15:05:14"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:05:32"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"u","15":"n","16":"r","17":"e","18":"c","19":"o","2":"L","20":"g","21":"n","22":"i","23":"z","24":"e","25":"d","26":" ","27":"t","28":"o","29":"k","3":"I","30":"e","31":"n","32":":","33":" ","34":"\"","35":"]","36":"\"","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 15:05:32"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:05:33"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"u","15":"n","16":"r","17":"e","18":"c","19":"o","2":"L","20":"g","21":"n","22":"i","23":"z","24":"e","25":"d","26":" ","27":"t","28":"o","29":"k","3":"I","30":"e","31":"n","32":":","33":" ","34":"\"","35":"]","36":"\"","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 15:05:33"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:05:33"}
+{"0":"S","1":"Q","10":"O","11":"R","12":":","13":" ","14":"u","15":"n","16":"r","17":"e","18":"c","19":"o","2":"L","20":"g","21":"n","22":"i","23":"z","24":"e","25":"d","26":" ","27":"t","28":"o","29":"k","3":"I","30":"e","31":"n","32":":","33":" ","34":"\"","35":"]","36":"\"","4":"T","5":"E","6":"_","7":"E","8":"R","9":"R","level":"error","message":"Errore standard di JavaScript","service":"user-service","timestamp":"2024-09-07 15:05:33"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:07:23"}
+{"level":"info","message":"ordine aggiornato","service":"user-service","timestamp":"2024-09-07 15:07:23"}
+{"level":"info","message":"tentativo di aggiornare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:07:32"}
+{"level":"warn","message":"ordine non trovato","service":"user-service","timestamp":"2024-09-07 15:07:32"}
+{"level":"info","message":"tentativo di eliminare un ordine ricevuto","service":"user-service","timestamp":"2024-09-07 15:11:33"}
+{"level":"info","message":"ordine eliminato","service":"user-service","timestamp":"2024-09-07 15:11:33"}

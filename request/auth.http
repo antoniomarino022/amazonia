@@ -1,6 +1,6 @@
 ###clean auth
 DELETE http://localhost:3000/auth/clean
-Content-Type: application/json
+Content-Type: application/json eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEzODI3LCJleHAiOjE3MjU3MTU2Mjd9.Mu4rTG-x7giW0ZPE4ffXJ24SclQvBqJyIzW_Ns-7PyI
 
 
 ### login

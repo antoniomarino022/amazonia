@@ -1,15 +1,14 @@
 ### clear table order
 DELETE http://localhost:3000/order
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEzODY0LCJleHAiOjE3MjU3MTU2NjR9.9V8VxovMeod28MJhBGgPjsiRxzFw4H0zZO91trL3kTk
 
 
 
 ### add order
 POST http://localhost:3000/order
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEwMjE2LCJleHAiOjE3MjU3MTIwMTZ9.gEN1RZKZDPXrEKDP7xFvk-5TxW2nWE59vJnauRZfsX0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzI1NzEzODY0LCJleHAiOjE3MjU3MTU2NjR9.9V8VxovMeod28MJhBGgPjsiRxzFw4H0zZO91trL3kTk
 
 {
     "userId":3,
